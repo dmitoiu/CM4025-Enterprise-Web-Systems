@@ -5,7 +5,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -15,6 +14,7 @@ import Container from '@material-ui/core/Container';
 import Card from "@material-ui/core/Card";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {ThemeProvider} from "@material-ui/styles";
+import { Link } from "react-router-dom";
 
 const rguTheme = createMuiTheme({
   palette: {
@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     padding: "40px"
+  },
+  link: {
+    textDecoration: "none",
+    color: "inherit"
   },
   avatar: {
     margin: theme.spacing(1),
@@ -97,7 +101,7 @@ const LogInView = () => {
                 <Grid item xs>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link className={classes.link} to={"/register"}>
                     {"Don't have an account? Register"}
                   </Link>
                 </Grid>

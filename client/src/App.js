@@ -23,6 +23,7 @@ import HomeView from "./views/HomeView";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import ProductView from "./views/ProductView";
 import LogInView from "./views/LogInView";
+import RegisterView from "./views/RegisterView";
 
 const drawerWidth = 240;
 
@@ -62,6 +63,7 @@ const App = () => {
             <Toolbar />
             <Route path="/" component={HomeView} exact/>
             <Route path="/login" component={LogInView} exact/>
+            <Route path="/register" component={RegisterView} exact/>
             <Route path="/product/:id" component={ProductView}/>
         </main>
         <Footer/>

@@ -19,6 +19,7 @@ const useStyles = makeStyles({
   },
   card: {
     padding: "20px",
+    height: "282px"
   },
   button: {
     marginTop: "20px",
