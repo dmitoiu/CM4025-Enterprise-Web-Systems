@@ -54,21 +54,21 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <Router>
-        <CssBaseline />
-        <Header/>
-        <ClippedDrawer/>
-        <main className={classes.content}>
+      <div className={classes.root}>
+        <Router>
+          <CssBaseline />
+          <Header/>
+          <ClippedDrawer/>
+          <main className={classes.content}>
             <Toolbar />
             <Route path="/" component={HomeView} exact/>
             <Route path="/login" component={LogInView} exact/>
             <Route path="/register" component={RegisterView} exact/>
             <Route path="/product/:id" component={ProductView}/>
-        </main>
-        <Footer/>
-      </Router>
-    </div>
+          </main>
+          <Footer/>
+        </Router>
+      </div>
   );
 }
 

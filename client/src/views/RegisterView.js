@@ -59,7 +59,7 @@ const RegisterView = () => {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign up
+              Register
             </Typography>
             <form className={classes.form} noValidate>
               <Grid container spacing={2}>
@@ -84,6 +84,17 @@ const RegisterView = () => {
                       label="Last Name"
                       name="lastName"
                       autoComplete="lname"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="username"
+                      label="Username"
+                      name="username"
+                      autoComplete="username"
                   />
                 </Grid>
                 <Grid item xs={12}>

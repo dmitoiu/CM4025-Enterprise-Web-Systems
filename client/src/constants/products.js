@@ -26,7 +26,7 @@ const products = [
   },
   {
     _id: "4",
-    name: "Samsung USB Keyboard Wired Full Size Keyboard with 105 Chiclet Keys",
+    name: "Samsung USB Keyboard Wired Full Size Keyboard",
     image: "/images/keyboard.jpg",
     brand: "Apple",
     price: 49.99,

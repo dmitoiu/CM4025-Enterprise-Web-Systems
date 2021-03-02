@@ -8,18 +8,19 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import Divider from "@material-ui/core/Divider";
-import products from "../util/products";
+import products from "../constants/products";
 import {makeStyles} from "@material-ui/core/styles";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {ThemeProvider} from "@material-ui/styles";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
   },
   card: {
-    padding: "20px",
-    height: "282px"
+    width: "100%",
+    height: "100%"
   },
   button: {
     marginTop: "20px",
@@ -56,7 +57,7 @@ const ProductView = ({match}) => {
   return (
       <div>
         <ThemeProvider theme={rguTheme}>
-          <Button variant="outlined" component={Link} to={"/"} color="primary">
+          <Button startIcon={<ArrowBackIcon/>} variant="contained" component={Link} to={"/"} color="primary">
             Go Back
           </Button>
           <Grid container className={classes.root} spacing={5}>
@@ -76,11 +77,11 @@ const ProductView = ({match}) => {
             <Grid direction={"column"} align={"center"} justify={"center"} item md={3}>
               <br/>
               <Card className={classes.card}>
-                <Typography variant={"paragraph"}>
+                <Typography variant={"h5"}>
                   Price: £{product.price}
                 </Typography>
                 <Divider/>
-                <Typography variant={"paragraph"}>
+                <Typography variant={"h5"}>
                   Status: {product.stock > 0 ? "In Stock" : "Out of Stock"}
                 </Typography>
                 <Divider/>

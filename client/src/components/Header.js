@@ -56,7 +56,7 @@ const Header = () => {
                             <img src={"/images/logo.png"} alt={"logo"} className={classes.logo}/>
                         </Link>
                         <Typography variant="h6" component={Link} to={"/"} className={classes.title}>
-                            RGU-Shop
+                            RGU eShop
                         </Typography>
                         <Button startIcon={<PersonIcon/>} component={Link} to={"/login"} color="inherit">Login</Button>
                         <Button startIcon={<ShoppingCartIcon/>} component={Link} to={"/cart"} color="inherit">Cart</Button>

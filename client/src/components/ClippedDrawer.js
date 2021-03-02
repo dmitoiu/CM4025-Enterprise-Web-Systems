@@ -4,6 +4,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import WhatshotIcon from '@material-ui/icons/Whatshot';
 import HomeIcon from "@material-ui/icons/Home";
 import ListItemText from "@material-ui/core/ListItemText";
 import NewReleases from "@material-ui/icons/NewReleases";
@@ -47,9 +48,9 @@ const ClippedDrawer = () => {
           <Toolbar />
           <div className={classes.drawerContainer}>
             <List>
-              <ListItem button key={"Home"} component={Link} to={"/"}>
-                <ListItemIcon><HomeIcon/></ListItemIcon>
-                <ListItemText primary={"Home"}/>
+              <ListItem button key={"Best Sellers"} component={Link} to={"/"}>
+                <ListItemIcon><WhatshotIcon/></ListItemIcon>
+                <ListItemText primary={"Best Sellers"}/>
               </ListItem>
               <ListItem button key={"New Releases"}>
                 <ListItemIcon><NewReleases/></ListItemIcon>

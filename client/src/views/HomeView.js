@@ -1,5 +1,5 @@
 import React from 'react';
-import products from "../util/products";
+import products from "../constants/products";
 import Product from "../components/Product";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
