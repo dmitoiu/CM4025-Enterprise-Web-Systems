@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const authController = require("../controllers/userController")
+const authController = require("../controllers/authController")
 var registerUser = authController.registerUser;
 var logInUser = authController.logInUser;
 var getUserProfile = authController.getProfile;
