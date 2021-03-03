@@ -15,6 +15,8 @@ import Card from "@material-ui/core/Card";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {ThemeProvider} from "@material-ui/styles";
 import { Link } from "react-router-dom";
+import authController from "../controllers/authController";
+import { useState } from 'react';
 
 const rguTheme = createMuiTheme({
   palette: {
@@ -48,8 +50,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const onLogIn = async (e) => {
+  e.preventDefault();
+  let data = {
+    username:this.state.username,
+    password:this.state.password
+  };
+  try{
+    let auth = await authController.logIn(data);
+    console.log(auth);
+  }catch(error){
+  }
+}
+
 const LogInView = () => {
   const classes = useStyles();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("Username:", username, "Password: ", password);
+    let data = {
+      username:username,
+      password:password
+    };
+    try{
+      let auth = authController.logIn(data);
+      console.log(auth);
+    }catch(error){
+    }
+
+  }
+
   return (
       <ThemeProvider theme={rguTheme}>
         <Container component="main" maxWidth="sm">
@@ -61,15 +94,17 @@ const LogInView = () => {
             <Typography component="h1" variant="h5">
               Log in
             </Typography>
-            <form className={classes.form} noValidate>
+            <form className={classes.form} noValidate onSubmit={handleSubmit}>
               <TextField
                   variant="outlined"
                   margin="normal"
                   required
                   fullWidth
                   id="username"
-                  label="Username"
+                  placeholder="Username"
                   name="username"
+                  value={username}
+                  onInput={e => setUsername(e.target.value)}
                   autoComplete="username"
                   autoFocus
               />
@@ -79,8 +114,10 @@ const LogInView = () => {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  placeholder="Password"
                   type="password"
+                  value={password}
+                  onInput={e => setPassword(e.target.value)}
                   id="password"
                   autoComplete="current-password"
               />
