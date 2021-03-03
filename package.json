@@ -7,5 +7,6 @@
     "start": "node server/bin/www"
   },
   "author": "Darie-Dragos Mitoiu",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {}
 }

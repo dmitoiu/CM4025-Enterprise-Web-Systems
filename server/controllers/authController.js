@@ -7,12 +7,12 @@ const generateToken = (id) => {
   });
 }
 
-const authenticateUser = async (req, res) => {
+const logInUser = async (req, res) => {
   try{
     const username = req.body.username;
     const password = req.body.password;
     const user = await User.findOne({username});
-    if(user && password.match(user.password)){
+    if(user && (await user.comparePassword(password))){
       res.json({
         _id: user._id,
         name: user.name,
@@ -27,6 +27,44 @@ const authenticateUser = async (req, res) => {
           error: "Email or password is incorrect."
         })
       }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+const registerUser = async (req, res) => {
+  try{
+    const name = req.body.name;
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+    const userExists = await User.findOne({username});
+
+    if(userExists){
+      res.send(401);
+      console.log("User exists already.");
+    } else {
+      const user = await User.create({
+        name,
+        username,
+        email,
+        password
+      })
+      if(user){
+        res.status(201).json({
+          _id: user._id,
+          name: user.name,
+          username: user.username,
+          email: user.email,
+          isAdmin: user.isAdmin,
+          token: generateToken(user._id)
+        })
+      } else {
+        res.send(404);
+        console.log("User not found.");
+      }
+    }
+
   } catch (e) {
     console.log(e);
   }
@@ -49,4 +87,4 @@ const getProfile = async (req, res) => {
   res.send("success");
 }
 
-module.exports = {authenticateUser, getProfile};
+module.exports = {logInUser, registerUser, getProfile};
