@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,7 +14,9 @@ import Container from '@material-ui/core/Container';
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {ThemeProvider} from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
-import { Link } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {register} from "../actions/authActions";
 
 const rguTheme = createMuiTheme({
   palette: {
@@ -50,6 +52,28 @@ const useStyles = makeStyles((theme) => ({
 
 const RegisterView = () => {
   const classes = useStyles();
+  const history = useHistory();
+  const initialState = {username: "", password: ""};
+  const [formData, setFormData] = useState(initialState);
+  const dispatch = useDispatch();
+  const userRegister = useSelector(state => state.authRegister);
+  const {loading, error, userInfo} = userRegister;
+
+  const handleOnChange = (e) => {
+    setFormData({ ... formData, [e.target.name]: e.target.value})
+  }
+
+  useEffect(() => {
+    if(userInfo){
+      history.push("/")
+    }
+  }, [history, userInfo])
+
+  const onRegisterButton = async (event) => {
+    event.preventDefault();
+    await dispatch(register(formData.name, formData.username, formData.email, formData.password))
+  }
+
   return (
       <ThemeProvider theme={rguTheme}>
         <Container component="main" maxWidth="sm">
@@ -61,29 +85,19 @@ const RegisterView = () => {
             <Typography component="h1" variant="h5">
               Register
             </Typography>
-            <form className={classes.form} noValidate>
+            <form className={classes.form} noValidate onSubmit={onRegisterButton}>
               <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                   <TextField
                       autoComplete="fname"
-                      name="firstName"
+                      name="name"
                       variant="outlined"
                       required
                       fullWidth
-                      id="firstName"
-                      label="First Name"
+                      id="name"
+                      label="Full Name"
+                      onChange={handleOnChange}
                       autoFocus
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="lastName"
-                      label="Last Name"
-                      name="lastName"
-                      autoComplete="lname"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -95,6 +109,7 @@ const RegisterView = () => {
                       label="Username"
                       name="username"
                       autoComplete="username"
+                      onChange={handleOnChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -106,6 +121,7 @@ const RegisterView = () => {
                       label="Email Address"
                       name="email"
                       autoComplete="email"
+                      onChange={handleOnChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -118,6 +134,7 @@ const RegisterView = () => {
                       type="password"
                       id="password"
                       autoComplete="current-password"
+                      onChange={handleOnChange}
                   />
                 </Grid>
                 <Grid item xs={12}>

@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
 const style = {
     display: "flex",
     justifyContent: "center",
@@ -50,7 +49,7 @@ const Footer = () => {
                 <AppBar position={"bottom"} className={classes.appBar}>
                     <Toolbar>
                         <Typography>
-                            Copyright &copy; 2021 RGU-Shop. All rights reserved.
+                            Copyright &copy; 2021 RGU eShop. All rights reserved.
                         </Typography>
                     </Toolbar>
                 </AppBar>

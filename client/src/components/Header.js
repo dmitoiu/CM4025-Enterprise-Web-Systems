@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,6 +11,9 @@ import {ThemeProvider} from "@material-ui/styles";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PersonIcon from '@material-ui/icons/Person';
 import { Link } from "react-router-dom";
+import auth from "../helpers/authHelper";
+import {useDispatch, useSelector} from "react-redux";
+import {logOut} from "../actions/authActions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,7 +47,17 @@ const rguTheme = createMuiTheme({
 
 const Header = () => {
     const classes = useStyles();
-    return (
+    const userLogIn = useSelector(state => state.authLogIn);
+    const {userInfo} = userLogIn;
+
+    const dispatch = useDispatch();
+
+  const onLogOutButton = () => {
+    dispatch(logOut());
+    console.log("Log out");
+  }
+
+  return (
         <div>
             <ThemeProvider theme={rguTheme}>
                 <AppBar position="fixed" className={classes.appBar}>
@@ -58,8 +71,11 @@ const Header = () => {
                         <Typography variant="h6" component={Link} to={"/"} className={classes.title}>
                             RGU eShop
                         </Typography>
-                        <Button startIcon={<PersonIcon/>} component={Link} to={"/login"} color="inherit">Login</Button>
                         <Button startIcon={<ShoppingCartIcon/>} component={Link} to={"/cart"} color="inherit">Cart</Button>
+                        {!userInfo ? (
+                            <Button startIcon={<PersonIcon/>} component={Link} to={"/login"} color="inherit">Login</Button>
+                        ) : <Button startIcon={<PersonIcon/>} onClick={onLogOutButton} color="inherit">{userInfo.name}</Button>
+                        }
                     </Toolbar>
                 </AppBar>
             </ThemeProvider>
