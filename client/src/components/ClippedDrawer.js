@@ -14,6 +14,8 @@ import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import MovieIcon from "@material-ui/icons/Movie";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
+import MoneyIcon from '@material-ui/icons/Money';
+import {useDispatch, useSelector} from "react-redux";
 
 const drawerWidth = 240;
 
@@ -36,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
 
 const ClippedDrawer = () => {
   const classes = useStyles();
+  const userLogIn = useSelector(state => state.authLogIn);
+  const {userInfo} = userLogIn;
+  const dispatch = useDispatch();
+
   return (
       <div>
         <Drawer
@@ -52,22 +58,32 @@ const ClippedDrawer = () => {
                 <ListItemIcon><WhatshotIcon/></ListItemIcon>
                 <ListItemText primary={"Best Sellers"}/>
               </ListItem>
-              <ListItem button key={"New Releases"}>
+              <ListItem button key={"New Releases"} component={Link} to={"/new"}>
                 <ListItemIcon><NewReleases/></ListItemIcon>
                 <ListItemText primary={"New Releases"}/>
               </ListItem>
             </List>
             <Divider />
+            {userInfo && <>
+              <List>
+                <ListItem button key={"Discount"} component={Link} to={"/discount"}>
+                  <ListItemIcon><MoneyIcon/></ListItemIcon>
+                  <ListItemText primary={"Discount Codes"}/>
+                  </ListItem>
+              </List>
+              <Divider/>
+              </>
+            }
             <List>
-              <ListItem button key={"Electronics"}>
+              <ListItem button key={"Electronics"} component={Link} to={"/electronics"}>
                 <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
                 <ListItemText primary={"Electronics"}/>
               </ListItem>
-              <ListItem button key={"Books"}>
+              <ListItem button key={"Books"} component={Link} to={"/books"}>
                 <ListItemIcon><LibraryBooksIcon/></ListItemIcon>
                 <ListItemText primary={"Books"}/>
               </ListItem>
-              <ListItem button key={"Films, TV & Music"}>
+              <ListItem button key={"Films, TV & Music"} component={Link} to={"/media"}>
                 <ListItemIcon><MovieIcon/></ListItemIcon>
                 <ListItemText primary={"Films, TV & Music"}/>
               </ListItem>

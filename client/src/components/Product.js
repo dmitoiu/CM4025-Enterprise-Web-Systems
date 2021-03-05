@@ -7,6 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Link } from "react-router-dom";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import {ThemeProvider} from "@material-ui/styles";
 
 const useStyles = makeStyles({
   root: {
@@ -30,36 +32,46 @@ const useStyles = makeStyles({
   },
 });
 
+const rguTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#660066",
+    },
+  },
+});
+
 const Product = ({product}) => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   return (
       <div>
-        <Card className={classes.root}>
-          <Link to={`/product/${product._id}`}>
-            <CardMedia
-                className={classes.media}
-                image={product.image}
-                title={product.name}
-            />
-          </Link>
-          <CardContent>
+        <ThemeProvider theme={rguTheme}>
+          <Card className={classes.root}>
             <Link to={`/product/${product._id}`}>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
-                {product.name}
-              </Typography>
+              <CardMedia
+                  className={classes.media}
+                  image={product.image}
+                  title={product.name}
+              />
             </Link>
-            <Typography variant="h5" component="h2">
-              £{product.price}
-            </Typography>
-            <Typography className={classes.pos} color="textSecondary">
-              Stock: {product.stock}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card>
+            <CardContent>
+              <Link to={`/product/${product._id}`}>
+                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                  {product.name}
+                </Typography>
+              </Link>
+              <Typography variant="h5" component="h2">
+                £{product.price}
+              </Typography>
+              <Typography className={classes.pos} color="textSecondary">
+                Stock: {product.stock}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button variant={"contained"} color={"primary"} component={Link} to={`/product/${product._id}`} size="small">Learn More</Button>
+            </CardActions>
+          </Card>
+        </ThemeProvider>
       </div>
   );
 };

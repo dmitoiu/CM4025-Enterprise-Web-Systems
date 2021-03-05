@@ -16,7 +16,12 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {ThemeProvider} from "@material-ui/styles";
 import { Link } from "react-router-dom";
 import authController from "../controllers/authController";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import {useHistory} from "react-router-dom";
+import auth from "../helpers/authHelper";
+import {useDispatch} from "react-redux";
+import {useSelector} from "react-redux";
+import {logIn} from "../actions/authActions";
 
 const rguTheme = createMuiTheme({
   palette: {
@@ -65,19 +70,43 @@ const onLogIn = async (e) => {
 
 const LogInView = () => {
   const classes = useStyles();
+  const history = useHistory();
+  const initialState = {username: "", password: ""};
+  const [formData, setFormData] = useState(initialState);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const userLogIn = useSelector(state => state.authLogIn);
+  const {loading, error, userInfo} = userLogIn;
+
+  const handleOnChange = (e) => {
+    setFormData({ ... formData, [e.target.name]: e.target.value})
+  }
+
+  useEffect(() => {
+    if(userInfo){
+      history.push("/")
+    }
+  }, [history, userInfo])
+
+  const onLogInButton = async (event) => {
+    event.preventDefault();
+    await dispatch(logIn(formData.username, formData.password))
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Username:", username, "Password: ", password);
+    console.log("Username:", formData.username, "Password: ", formData.password);
     let data = {
-      username:username,
-      password:password
+      username:formData.username,
+      password:formData.password
     };
     try{
-      let auth = authController.logIn(data);
-      console.log(auth);
+      let authenticate = await authController.logIn(data);
+      if(authenticate.username){
+        const redirect = history.push("/");
+        auth.authenticate(authenticate.token, redirect);
+      }
     }catch(error){
     }
 
@@ -94,17 +123,16 @@ const LogInView = () => {
             <Typography component="h1" variant="h5">
               Log in
             </Typography>
-            <form className={classes.form} noValidate onSubmit={handleSubmit}>
+            <form className={classes.form} noValidate onSubmit={onLogInButton}>
               <TextField
                   variant="outlined"
                   margin="normal"
                   required
                   fullWidth
                   id="username"
-                  placeholder="Username"
+                  label="Username"
                   name="username"
-                  value={username}
-                  onInput={e => setUsername(e.target.value)}
+                  onChange={handleOnChange}
                   autoComplete="username"
                   autoFocus
               />
@@ -114,10 +142,9 @@ const LogInView = () => {
                   required
                   fullWidth
                   name="password"
-                  placeholder="Password"
+                  label="Password"
                   type="password"
-                  value={password}
-                  onInput={e => setPassword(e.target.value)}
+                  onChange={handleOnChange}
                   id="password"
                   autoComplete="current-password"
               />
