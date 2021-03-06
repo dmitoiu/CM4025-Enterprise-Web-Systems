@@ -4,9 +4,16 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node server/bin/www"
+    "start": "node server/bin/www",
+    "server": "nodemon server/bin/www",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server \" \"npm run client\""
   },
   "author": "Darie-Dragos Mitoiu",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^6.0.0",
+    "nodemon": "^2.0.7"
+  }
 }

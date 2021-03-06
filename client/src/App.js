@@ -24,7 +24,8 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import ProductView from "./views/ProductView";
 import LogInView from "./views/LogInView";
 import RegisterView from "./views/RegisterView";
-import DiscountView from "./views/DiscountView";
+import VoucherView from "./views/VoucherView";
+import PrivateRoute from "./components/PrivateRoute";
 
 const drawerWidth = 240;
 
@@ -66,7 +67,7 @@ const App = () => {
             <Route path="/login" component={LogInView} exact/>
             <Route path="/register" component={RegisterView} exact/>
             <Route path="/product/:id" component={ProductView}/>
-            <Route path="/discount" component={DiscountView}/>
+            <PrivateRoute path="/vouchers" component={VoucherView}/>
           </main>
           <Footer/>
         </Router>

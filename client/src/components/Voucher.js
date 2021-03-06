@@ -45,8 +45,17 @@ const rguTheme = createMuiTheme({
   },
 });
 
-const Discount = (props) => {
+const Voucher = (props) => {
   const classes = useStyles();
+
+  const updateVoucherPercent = () => {
+    props.onPercentVoucher();
+  }
+
+  const updateVoucherCurrency = () => {
+    props.onCurrencyVoucher();
+  }
+
   return (
       <div>
         <ThemeProvider theme={rguTheme}>
@@ -62,7 +71,11 @@ const Discount = (props) => {
               </CardContent>
             </div>
             <CardActions className={classes.actions}>
-              <Button variant={"contained"} color={"primary"} size="small">Get Deal</Button>
+              {props.discount.match("20%") ?
+              <Button variant={"contained"} onClick={updateVoucherPercent} color={"primary"} size="small">Get Deal</Button>
+                  :
+              <Button variant={"contained"} onClick={updateVoucherCurrency} color={"primary"} size="small">Get Deal</Button>
+              }
             </CardActions>
           </Card>
         </ThemeProvider>
@@ -70,4 +83,4 @@ const Discount = (props) => {
   );
 };
 
-export default Discount;
+export default Voucher;
