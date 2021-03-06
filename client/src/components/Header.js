@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import auth from "../helpers/authHelper";
 import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../actions/authActions";
+import {selectDrawerClose, selectDrawerOpen} from "../actions/drawerActions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,8 +49,9 @@ const rguTheme = createMuiTheme({
 const Header = () => {
     const classes = useStyles();
     const userLogIn = useSelector(state => state.authLogIn);
+    const drawerOpen = useSelector(state => state.drawerOpen);
     const {userInfo} = userLogIn;
-
+    let open = drawerOpen.drawerOpen;
     const dispatch = useDispatch();
 
   const onLogOutButton = () => {
@@ -57,12 +59,30 @@ const Header = () => {
     console.log("Log out");
   }
 
+  const handleDrawerOpen = () => {
+    dispatch(selectDrawerOpen(true));
+    open = true;
+  }
+
+  const handleDrawerClose = () => {
+    dispatch(selectDrawerClose(false))
+    open = false;
+  }
+
+  const toggleDrawer = () => {
+    if(!open){
+      handleDrawerOpen();
+    } else {
+      handleDrawerClose();
+    }
+  }
+
   return (
         <div>
             <ThemeProvider theme={rguTheme}>
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar>
-                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                        <IconButton edge="start" onClick={toggleDrawer} className={classes.menuButton} color="inherit" aria-label="menu">
                             <MenuIcon />
                         </IconButton>
                         <Link to={"/"}>

@@ -39,13 +39,18 @@ const useStyles = makeStyles((theme) => ({
 const ClippedDrawer = () => {
   const classes = useStyles();
   const userLogIn = useSelector(state => state.authLogIn);
+  let drawerOpen = useSelector(state => state.drawerOpen);
   const {userInfo} = userLogIn;
+
+  console.log(drawerOpen);
 
   return (
       <div>
         <Drawer
             className={classes.drawer}
-            variant="permanent"
+            variant="persistent"
+            open={drawerOpen.drawerOpen}
+            anchor={"left"}
             classes={{
               paper: classes.drawerPaper,
             }}
