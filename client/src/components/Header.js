@@ -10,7 +10,7 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {ThemeProvider} from "@material-ui/styles";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PersonIcon from '@material-ui/icons/Person';
-import { Link } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import auth from "../helpers/authHelper";
 import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../actions/authActions";
@@ -48,6 +48,7 @@ const rguTheme = createMuiTheme({
 
 const Header = () => {
     const classes = useStyles();
+    const history = useHistory();
     const userLogIn = useSelector(state => state.authLogIn);
     const drawerOpen = useSelector(state => state.drawerOpen);
     const {userInfo} = userLogIn;
@@ -58,6 +59,12 @@ const Header = () => {
     dispatch(logOut());
     console.log("Log out");
   }
+
+  useEffect(() => {
+    if(!userInfo){
+      history.push("/login")
+    }
+  }, [history, userInfo])
 
   const handleDrawerOpen = () => {
     dispatch(selectDrawerOpen(true));

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,7 +28,8 @@ import VoucherView from "./views/VoucherView";
 import PrivateRoute from "./components/PrivateRoute";
 import auth from "./helpers/authHelper";
 import clsx from "clsx";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {selectDrawerClose, selectDrawerOpen} from "./actions/drawerActions";
 
 const drawerWidth = 240;
 
@@ -71,12 +72,32 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles();
   const drawerOpen = useSelector(state => state.drawerOpen);
+  const userLogIn = useSelector(state => state.authLogIn);
+  const {loading, error, userInfo} = userLogIn;
+  const dispatch = useDispatch();
+
+  const handleDrawerOpen = () => {
+    dispatch(selectDrawerOpen(true));
+  }
+
+  const handleDrawerClose = () => {
+    dispatch(selectDrawerClose(false))
+  }
+
+  useEffect(() => {
+    if(!userInfo){
+      handleDrawerOpen();
+    }
+  }, [userInfo])
+
   return (
       <div className={classes.root}>
         <Router>
           <CssBaseline />
           <Header/>
-          <ClippedDrawer/>
+          {userInfo &&
+              <ClippedDrawer/>
+          }
           <main className={clsx(classes.content, {
                 [classes.contentShift]: drawerOpen.drawerOpen,})}
           >
