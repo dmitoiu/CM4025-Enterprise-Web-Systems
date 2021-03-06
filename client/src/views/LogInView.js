@@ -55,26 +55,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const onLogIn = async (e) => {
-  e.preventDefault();
-  let data = {
-    username:this.state.username,
-    password:this.state.password
-  };
-  try{
-    let auth = await authController.logIn(data);
-    console.log(auth);
-  }catch(error){
-  }
-}
-
 const LogInView = () => {
   const classes = useStyles();
   const history = useHistory();
   const initialState = {username: "", password: ""};
   const [formData, setFormData] = useState(initialState);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const userLogIn = useSelector(state => state.authLogIn);
   const {loading, error, userInfo} = userLogIn;
@@ -92,24 +77,6 @@ const LogInView = () => {
   const onLogInButton = async (event) => {
     event.preventDefault();
     await dispatch(logIn(formData.username, formData.password))
-  }
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    console.log("Username:", formData.username, "Password: ", formData.password);
-    let data = {
-      username:formData.username,
-      password:formData.password
-    };
-    try{
-      let authenticate = await authController.logIn(data);
-      if(authenticate.username){
-        const redirect = history.push("/");
-        auth.authenticate(authenticate.token, redirect);
-      }
-    }catch(error){
-    }
-
   }
 
   return (
