@@ -109,6 +109,7 @@ const LogInView = () => {
                   margin="normal"
                   required
                   fullWidth
+                  size={"small"}
                   id="username"
                   label="Username"
                   name="username"
@@ -121,6 +122,7 @@ const LogInView = () => {
                   margin="normal"
                   required
                   fullWidth
+                  size={"small"}
                   name="password"
                   label="Password"
                   type="password"
