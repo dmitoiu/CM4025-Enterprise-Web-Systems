@@ -7,6 +7,17 @@ import {
 } from "../constants/authConstants";
 import auth from "../helpers/authHelper";
 
+/**
+ * Authentication Log In Post request
+ * Purpose: Logs in a user
+ * @param formUsername
+ * @param formPassword
+ * @returns {function(...[*]=)}
+ * Reference: https://github.com/bradtraversy/proshop_mern/blob/master/frontend/src/actions/userActions.js
+ * Reference: Lab 6 Part 1 - http://campusmoodle.rgu.ac.uk/mod/resource/view.php?id=3853318
+ * Reference: Lab 6 Part 2 - http://campusmoodle.rgu.ac.uk/mod/resource/view.php?id=3868900
+ * Adapted using the above references
+ */
 const logIn = (formUsername, formPassword) => async (dispatch) => {
   try{
     dispatch({
@@ -25,7 +36,7 @@ const logIn = (formUsername, formPassword) => async (dispatch) => {
       password: formPassword
     }
 
-    let response = await fetch("http://127.0.0.1:5000/api/users/login", {
+    let response = await fetch("/api/users/login", {
       method: method,
       headers: headers,
       body:JSON.stringify(data)
@@ -51,27 +62,36 @@ const logIn = (formUsername, formPassword) => async (dispatch) => {
   }
 }
 
+/**
+ * Authentication Register Post Request
+ * Purpose: Registers a user
+ * @param formName
+ * @param formUsername
+ * @param formEmail
+ * @param formPassword
+ * @returns {function(...[*]=)}
+ * Reference: https://github.com/bradtraversy/proshop_mern/blob/master/frontend/src/actions/userActions.js
+ * Reference: Lab 6 Part 1 - http://campusmoodle.rgu.ac.uk/mod/resource/view.php?id=3853318
+ * Reference: Lab 6 Part 2 - http://campusmoodle.rgu.ac.uk/mod/resource/view.php?id=3868900
+ * Adapted using the above references
+ */
 const register = (formName, formUsername, formEmail, formPassword) => async (dispatch) => {
   try{
     dispatch({
       type: AUTH_REGISTER_REQUEST
     })
-
     const method = "POST";
-
     const headers = {
       "Accept": "application/json",
       "Content-Type": "application/json"
     }
-
     const data = {
       name: formName,
       username: formUsername,
       email: formEmail,
       password: formPassword
     }
-
-    let response = await fetch("http://127.0.0.1:5000/api/users", {
+    let response = await fetch("/api/users", {
       method: method,
       headers: headers,
       body:JSON.stringify(data)
@@ -97,6 +117,11 @@ const register = (formName, formUsername, formEmail, formPassword) => async (dis
   }
 }
 
+/**
+ * Authentication Log out
+ * Purpose: logs out the user
+ * @returns {function(...[*]=)}
+ */
 const logOut = () => (dispatch) => {
   auth.clearJWT();
   dispatch({type: AUTH_LOGOUT});

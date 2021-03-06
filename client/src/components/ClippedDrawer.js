@@ -40,7 +40,6 @@ const ClippedDrawer = () => {
   const classes = useStyles();
   const userLogIn = useSelector(state => state.authLogIn);
   const {userInfo} = userLogIn;
-  const dispatch = useDispatch();
 
   return (
       <div>
@@ -66,9 +65,9 @@ const ClippedDrawer = () => {
             <Divider />
             {userInfo && <>
               <List>
-                <ListItem button key={"Discount"} component={Link} to={"/discount"}>
+                <ListItem button key={"Discount"} component={Link} to={"/vouchers"}>
                   <ListItemIcon><MoneyIcon/></ListItemIcon>
-                  <ListItemText primary={"Discount Codes"}/>
+                  <ListItemText primary={"Vouchers"}/>
                   </ListItem>
               </List>
               <Divider/>

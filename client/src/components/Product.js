@@ -40,9 +40,16 @@ const rguTheme = createMuiTheme({
   },
 });
 
+/**
+ * Product Card
+ * @param product
+ * @returns {*}
+ * @constructor
+ * Reference: https://github.com/bradtraversy/proshop_mern/blob/master/frontend/src/components/Product.js
+ * Inspired from the reference above, yet different in approach (material-ui vs bootstrap)
+ */
 const Product = ({product}) => {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
   return (
       <div>
         <ThemeProvider theme={rguTheme}>
@@ -68,7 +75,8 @@ const Product = ({product}) => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button variant={"contained"} color={"primary"} component={Link} to={`/product/${product._id}`} size="small">Learn More</Button>
+              <Button variant={"contained"} color={"primary"} component={Link}
+                      to={`/product/${product._id}`} size="small">Learn More</Button>
             </CardActions>
           </Card>
         </ThemeProvider>
