@@ -27,6 +27,8 @@ import RegisterView from "./views/RegisterView";
 import VoucherView from "./views/VoucherView";
 import PrivateRoute from "./components/PrivateRoute";
 import auth from "./helpers/authHelper";
+import clsx from "clsx";
+import {useSelector} from "react-redux";
 
 const drawerWidth = 240;
 
@@ -49,25 +51,35 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'auto',
     },
     content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
+      flexGrow: 1,
+      padding: theme.spacing(3),
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginLeft: -drawerWidth,
+    },
+    contentShift: {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
     },
 }));
 
 const App = () => {
   const classes = useStyles();
-  // if (window.performance) {
-  //   if (performance.navigation.type === 1) {
-  //     auth.clearJWT();
-  //   }
-  // }
+  const drawerOpen = useSelector(state => state.drawerOpen);
   return (
       <div className={classes.root}>
         <Router>
           <CssBaseline />
           <Header/>
           <ClippedDrawer/>
-          <main className={classes.content}>
+          <main className={clsx(classes.content, {
+                [classes.contentShift]: drawerOpen.drawerOpen,})}
+          >
             <Toolbar />
             <Route path="/" component={HomeView} exact/>
             <Route path="/login" component={LogInView} exact/>
