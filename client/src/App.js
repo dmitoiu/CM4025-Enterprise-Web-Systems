@@ -26,6 +26,7 @@ import LogInView from "./views/LogInView";
 import RegisterView from "./views/RegisterView";
 import VoucherView from "./views/VoucherView";
 import PrivateRoute from "./components/PrivateRoute";
+import auth from "./helpers/authHelper";
 
 const drawerWidth = 240;
 
@@ -55,6 +56,11 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
+  // if (window.performance) {
+  //   if (performance.navigation.type === 1) {
+  //     auth.clearJWT();
+  //   }
+  // }
   return (
       <div className={classes.root}>
         <Router>

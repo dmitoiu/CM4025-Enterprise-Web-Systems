@@ -149,13 +149,6 @@ const RegisterView = () => {
               >
                 Register
               </Button>
-              <Grid container justify="flex-end">
-                <Grid item>
-                  <Link className={classes.link} to="/login">
-                    Already have an account? Log in
-                  </Link>
-                </Grid>
-              </Grid>
             </form>
           </Card>
         </Container>

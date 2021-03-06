@@ -22,6 +22,7 @@ import auth from "../helpers/authHelper";
 import {useDispatch} from "react-redux";
 import {useSelector} from "react-redux";
 import {logIn} from "../actions/authActions";
+import Alert from '@material-ui/lab/Alert';
 
 const rguTheme = createMuiTheme({
   palette: {
@@ -83,6 +84,18 @@ const LogInView = () => {
       <ThemeProvider theme={rguTheme}>
         <Container component="main" maxWidth="sm">
           <CssBaseline />
+          <div>
+            {error ?
+                <div className={classes.root}>
+                  <Alert variant="filled" severity="error">
+                    Username or Password is incorrect.
+                  </Alert>
+                </div>
+                :
+              <Typography variant={"h5"}>
+              </Typography>
+            }
+          </div>
           <Card className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
