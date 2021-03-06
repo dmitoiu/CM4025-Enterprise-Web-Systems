@@ -7,6 +7,12 @@ import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {ThemeProvider} from "@material-ui/styles";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
+import Slide from "@material-ui/core/Slide";
+import DialogContent from "@material-ui/core/DialogContent";
 
 const useStyles = makeStyles({
   root: {
@@ -45,15 +51,30 @@ const rguTheme = createMuiTheme({
   },
 });
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const Voucher = (props) => {
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const updateVoucherPercent = () => {
     props.onPercentVoucher();
+    handleClickOpen();
   }
 
   const updateVoucherCurrency = () => {
     props.onCurrencyVoucher();
+    handleClickOpen();
   }
 
   return (
@@ -78,6 +99,28 @@ const Voucher = (props) => {
               }
             </CardActions>
           </Card>
+          <Dialog
+              open={open}
+              TransitionComponent={Transition}
+              keepMounted
+              fullWidth
+              maxWidth={"md"}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-slide-title"
+              aria-describedby="alert-dialog-slide-description"
+          >
+            <DialogTitle id="alert-dialog-slide-title">{"Voucher"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-slide-description">
+                Code: AB12 T34
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Close
+              </Button>
+            </DialogActions>
+          </Dialog>
         </ThemeProvider>
       </div>
   );

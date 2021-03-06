@@ -19,7 +19,6 @@ const reducers = combineReducers({
   authRegister: authRegisterReducer,
   voucher: voucherReducer
 });
-
 const store = createStore(reducers, initialState, composeWithDevTools(applyMiddleware(thunk)));
 
 export default store;
