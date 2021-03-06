@@ -13,6 +13,7 @@ import {ThemeProvider} from "@material-ui/styles";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    height: "400px"
   },
   media: {
     height: 0,

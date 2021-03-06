@@ -82,9 +82,11 @@ const Header = () => {
             <ThemeProvider theme={rguTheme}>
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar>
-                        <IconButton edge="start" onClick={toggleDrawer} className={classes.menuButton} color="inherit" aria-label="menu">
+                      {userInfo &&
+                          <IconButton edge="start" onClick={toggleDrawer} className={classes.menuButton} color="inherit" aria-label="menu">
                             <MenuIcon />
-                        </IconButton>
+                          </IconButton>
+                      }
                         <Link to={"/"}>
                             <img src={"/images/logo.png"} alt={"logo"} className={classes.logo}/>
                         </Link>

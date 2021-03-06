@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  product: {
+    height: "100%"
+  },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
@@ -24,7 +27,7 @@ const HomeView = () => {
         <Typography variant={"h4"}>
           Best Sellers
         </Typography>
-        <Grid container spacing={3}>
+        <Grid className={classes.product} container spacing={3}>
           {products.map((product) => (
             <Grid item md={3} xs={12}>
               <Product product={product}/>

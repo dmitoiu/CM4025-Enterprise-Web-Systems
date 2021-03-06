@@ -53,8 +53,34 @@ const useStyles = makeStyles((theme) => ({
 const RegisterView = () => {
   const classes = useStyles();
   const history = useHistory();
-  const initialState = {username: "", password: ""};
+
+  const initialState = {
+    name: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  };
+
+  const errorState = {
+    nameError: false,
+    usernameError: false,
+    emailError: false,
+    passwordError: false,
+    confirmPasswordError: false
+  };
+
+  const errorStateValues = {
+    nameErrorValue: "",
+    usernameErrorValue: "",
+    emailErrorValue: "",
+    passwordErrorValue: "",
+    confirmPasswordErrorValue: ""
+  }
   const [formData, setFormData] = useState(initialState);
+  const [errorData, setErrorData] = useState(errorState);
+  const [errorDataValues, setErrorDataValues] = useState(errorStateValues);
+
   const dispatch = useDispatch();
   const userRegister = useSelector(state => state.authRegister);
   const {loading, error, userInfo} = userRegister;
@@ -71,7 +97,15 @@ const RegisterView = () => {
 
   const onRegisterButton = async (event) => {
     event.preventDefault();
-    await dispatch(register(formData.name, formData.username, formData.email, formData.password))
+    if(!formData.name){
+      setErrorData({
+        nameError: true
+      });
+      setErrorDataValues({
+        nameErrorValue: "Please enter your full name."
+      })
+    }
+    //await dispatch(register(formData.name, formData.username, formData.email, formData.password))
   }
 
   return (
@@ -91,9 +125,12 @@ const RegisterView = () => {
                   <TextField
                       autoComplete="fname"
                       name="name"
+                      error={errorData.nameError}
+                      helperText={errorDataValues.nameErrorValue}
                       variant="outlined"
                       required
                       fullWidth
+                      size={"small"}
                       id="name"
                       label="Full Name"
                       onChange={handleOnChange}
@@ -105,6 +142,7 @@ const RegisterView = () => {
                       variant="outlined"
                       required
                       fullWidth
+                      size={"small"}
                       id="username"
                       label="Username"
                       name="username"
@@ -117,6 +155,7 @@ const RegisterView = () => {
                       variant="outlined"
                       required
                       fullWidth
+                      size={"small"}
                       id="email"
                       label="Email Address"
                       name="email"
@@ -129,10 +168,25 @@ const RegisterView = () => {
                       variant="outlined"
                       required
                       fullWidth
+                      size={"small"}
                       name="password"
                       label="Password"
                       type="password"
                       id="password"
+                      autoComplete="current-password"
+                      onChange={handleOnChange}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      size={"small"}
+                      name="confirmPassword"
+                      label="Confirm Password"
+                      type="password"
+                      id="confirmPassword"
                       autoComplete="current-password"
                       onChange={handleOnChange}
                   />
