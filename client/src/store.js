@@ -7,8 +7,8 @@ import {authLogInReducer, authRegisterReducer} from "./reducers/authReducers";
 import {voucherReducer} from "./reducers/voucherReducers";
 import {drawerReducer} from "./reducers/drawerReducers";
 
-const getUserInfoStorage = localStorage.getItem("authDetails") ?
-    JSON.parse(localStorage.getItem("authDetails"))
+const getUserInfoStorage = sessionStorage.getItem("authDetails") ?
+    JSON.parse(sessionStorage.getItem("authDetails"))
     : null;
 
 const initialState = {
@@ -22,6 +22,7 @@ const reducers = combineReducers({
   voucher: voucherReducer,
   drawerOpen: drawerReducer
 });
+
 const store = createStore(reducers, initialState, composeWithDevTools(applyMiddleware(thunk)));
 
 export default store;
