@@ -17,6 +17,7 @@ import Card from "@material-ui/core/Card";
 import {Link, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {register} from "../actions/authActions";
+import validator from "validator";
 
 const rguTheme = createMuiTheme({
   palette: {
@@ -54,6 +55,7 @@ const RegisterView = () => {
   const classes = useStyles();
   const history = useHistory();
 
+  // Declare and assign values for initial state
   const initialState = {
     name: "",
     username: "",
@@ -62,6 +64,7 @@ const RegisterView = () => {
     confirmPassword: ""
   };
 
+  // Declare and assign values for error state
   const errorState = {
     nameError: false,
     usernameError: false,
@@ -70,18 +73,23 @@ const RegisterView = () => {
     confirmPasswordError: false
   };
 
+  // Declare and assign values for error state message values
   const errorStateValues = {
-    nameErrorValue: "",
-    usernameErrorValue: "",
-    emailErrorValue: "",
-    passwordErrorValue: "",
-    confirmPasswordErrorValue: ""
+    nameError: "",
+    usernameError: "",
+    emailError: "",
+    passwordError: "",
+    confirmPasswordError: ""
   }
+
+  // Create state modifiers
   const [formData, setFormData] = useState(initialState);
   const [errorData, setErrorData] = useState(errorState);
   const [errorDataValues, setErrorDataValues] = useState(errorStateValues);
 
+  // Create Redux dispatch
   const dispatch = useDispatch();
+  // Get register state reducer using the redux selector
   const userRegister = useSelector(state => state.authRegister);
   const {loading, error, userInfo} = userRegister;
 
@@ -95,16 +103,44 @@ const RegisterView = () => {
     }
   }, [history, userInfo])
 
+  /**
+   * Field Error
+   * @param fieldName
+   * @param message
+   * Reference: https://github.com/CM2104-DynamicWebDevelopment/
+   *            cm2104-group-web-app-unt/blob/master/final/public
+   *            /js/main.js
+   * Adapted from previous work to fit React
+   */
+  const errorField = (fieldName, message) => {
+    setErrorData({[fieldName]: true});
+    setErrorDataValues({[fieldName]: message})
+  }
+
+  /**
+   * Field Success
+   * @param fieldName
+   * Reference: https://github.com/CM2104-DynamicWebDevelopment/
+   *            cm2104-group-web-app-unt/blob/master/final/public
+   *            /js/main.js
+   * Adapted from previous work to fit React
+   */
+  const successField = (fieldName) => {
+    setErrorData({[fieldName]: false});
+    setErrorDataValues({[fieldName]: ""})
+  }
+
   const onRegisterButton = async (event) => {
     event.preventDefault();
-    if(!formData.name){
-      setErrorData({
-        nameError: true
-      });
-      setErrorDataValues({
-        nameErrorValue: "Please enter your full name."
-      })
+    if(!formData.name) {
+      errorField("nameError", "Please enter your full name.");
+    } else {
+      successField("nameError");
+      if(!validator.isAlpha(formData.name)) {
+        errorField("nameError", "Please enter alphabetical characters only.");
+      }
     }
+    console.log(errorData["nameError"])
     //await dispatch(register(formData.name, formData.username, formData.email, formData.password))
   }
 
@@ -126,7 +162,7 @@ const RegisterView = () => {
                       autoComplete="fname"
                       name="name"
                       error={errorData.nameError}
-                      helperText={errorDataValues.nameErrorValue}
+                      helperText={errorDataValues.nameError}
                       variant="outlined"
                       required
                       fullWidth
