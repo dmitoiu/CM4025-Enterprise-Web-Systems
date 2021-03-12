@@ -49,7 +49,7 @@ const logIn = (formUsername, formPassword) => async (dispatch) => {
         type: AUTH_LOGIN_SUCCESS,
         payload: result
       })
-      auth.authenticate(result.token);
+      auth.authenticate(result);
     } else {
       dispatch({
         type: AUTH_LOGIN_FAIL,

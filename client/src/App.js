@@ -30,6 +30,7 @@ import auth from "./helpers/authHelper";
 import clsx from "clsx";
 import {useDispatch, useSelector} from "react-redux";
 import {selectDrawerClose, selectDrawerOpen} from "./actions/drawerActions";
+import DashboardView from "./views/DashboardView";
 
 const drawerWidth = 240;
 
@@ -107,6 +108,7 @@ const App = () => {
             <Route path="/register" component={RegisterView} exact/>
             <Route path="/product/:id" component={ProductView}/>
             <PrivateRoute path="/vouchers" component={VoucherView}/>
+            <PrivateRoute path="/dashboard" component={DashboardView}/>
           </main>
           <Footer/>
         </Router>

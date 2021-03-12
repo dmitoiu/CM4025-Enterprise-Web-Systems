@@ -113,8 +113,12 @@ const RegisterView = () => {
    * Adapted from previous work to fit React
    */
   const errorField = (fieldName, message) => {
-    setErrorData({[fieldName]: true});
-    setErrorDataValues({[fieldName]: message})
+    setErrorData( errorData => ({
+      ...errorData,
+      [fieldName]: true}));
+    setErrorDataValues( errorDataValues => ({
+      ...errorDataValues,
+      [fieldName]: message}));
   }
 
   /**
@@ -126,8 +130,12 @@ const RegisterView = () => {
    * Adapted from previous work to fit React
    */
   const successField = (fieldName) => {
-    setErrorData({[fieldName]: false});
-    setErrorDataValues({[fieldName]: ""})
+    setErrorData(errorData => ({
+      ...errorData,
+      [fieldName]: false}));
+    setErrorDataValues( errorDataValues => ({
+      ...errorDataValues,
+      [fieldName]: ""}));
   }
 
   const onRegisterButton = async (event) => {
@@ -140,7 +148,43 @@ const RegisterView = () => {
         errorField("nameError", "Please enter alphabetical characters only.");
       }
     }
-    console.log(errorData["nameError"])
+    if(!formData.username){
+      errorField("usernameError", "Please enter your username.");
+    } else {
+      successField("usernameError");
+      if(!validator.isAlphanumeric("usernameError")){
+        errorField("usernameError", "Please enter alphabetical and numerical characters only.");
+      }
+    }
+    if(!formData.email){
+      errorField("emailError", "Please enter your email.");
+    } else {
+      successField("emailError");
+      if(!validator.isEmail(formData.email)){
+        errorField("emailError", "Please enter a valid email format.");
+      }
+    }
+    if(!formData.password){
+      errorField("passwordError", "Please enter your password.");
+    } else {
+      if(formData.password.length < 8){
+        errorField("passwordError", "The password must be at least eight characters long.");
+      } else {
+        successField("passwordError");
+        if(!validator.isStrongPassword(formData.password)){
+          errorField("passwordError", "Please enter a stronger password.");
+        }
+      }
+    }
+    if(!formData.confirmPassword){
+      errorField("confirmPasswordError", "Please confirm your password.");
+    } else {
+      successField("confirmPasswordError");
+      if(!formData.password.match(formData.confirmPassword)){
+        errorField("confirmPasswordError", "Please confirm your password.");
+      }
+    }
+    console.log(validator.isEmail(formData.email));
     //await dispatch(register(formData.name, formData.username, formData.email, formData.password))
   }
 
@@ -149,9 +193,6 @@ const RegisterView = () => {
         <Container component="main" maxWidth="sm">
           <CssBaseline />
           <Card className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
             <Typography component="h1" variant="h5">
               Register
             </Typography>
@@ -182,6 +223,8 @@ const RegisterView = () => {
                       id="username"
                       label="Username"
                       name="username"
+                      error={errorData.usernameError}
+                      helperText={errorDataValues.usernameError}
                       autoComplete="username"
                       onChange={handleOnChange}
                   />
@@ -195,6 +238,8 @@ const RegisterView = () => {
                       id="email"
                       label="Email Address"
                       name="email"
+                      error={errorData.emailError}
+                      helperText={errorDataValues.emailError}
                       autoComplete="email"
                       onChange={handleOnChange}
                   />
@@ -209,6 +254,8 @@ const RegisterView = () => {
                       label="Password"
                       type="password"
                       id="password"
+                      error={errorData.passwordError}
+                      helperText={errorDataValues.passwordError}
                       autoComplete="current-password"
                       onChange={handleOnChange}
                   />
@@ -223,11 +270,11 @@ const RegisterView = () => {
                       label="Confirm Password"
                       type="password"
                       id="confirmPassword"
+                      error={errorData.confirmPasswordError}
+                      helperText={errorDataValues.confirmPasswordError}
                       autoComplete="current-password"
                       onChange={handleOnChange}
                   />
-                </Grid>
-                <Grid item xs={12}>
                 </Grid>
               </Grid>
               <Button

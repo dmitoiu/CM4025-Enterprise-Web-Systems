@@ -22,4 +22,9 @@ const updateVoucher = async (req, res) => {
   }
 }
 
-module.exports = updateVoucher;
+const getVouchers = async (req, res) => {
+  const vouchers = await Voucher.find({});
+  res.json(vouchers);
+}
+
+module.exports = {updateVoucher, getVouchers};

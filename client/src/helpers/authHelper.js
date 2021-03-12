@@ -15,9 +15,9 @@ const auth = {
     else
       return false
   },
-  authenticate(jwt) {
+  authenticate(state) {
     if (typeof window !== "undefined")
-      sessionStorage.setItem('authDetails', JSON.stringify(jwt))
+      sessionStorage.setItem('authDetails', JSON.stringify(state))
   },
   clearJWT() {
     if (typeof window !== "undefined")

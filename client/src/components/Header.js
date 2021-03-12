@@ -97,13 +97,14 @@ const Header = () => {
                         <Link to={"/"}>
                             <img src={"/images/logo.png"} alt={"logo"} className={classes.logo}/>
                         </Link>
-                        <Typography variant="h6" component={Link} to={"/"} className={classes.title}>
+                        <Typography variant="h6" className={classes.title}>
                             RGU eShop
                         </Typography>
                         <Button startIcon={<ShoppingCartIcon/>} component={Link} to={"/cart"} color="inherit">Cart</Button>
                         {!userInfo ? (
                             <Button startIcon={<PersonIcon/>} component={Link} to={"/login"} color="inherit">Login</Button>
-                        ) : <Button startIcon={<PersonIcon/>} onClick={onLogOutButton} color="inherit">{userInfo.name}</Button>
+                        ) :
+                            <Button startIcon={<PersonIcon/>} onClick={onLogOutButton} color="inherit">Log out</Button>
                         }
                     </Toolbar>
                 </AppBar>

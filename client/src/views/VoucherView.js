@@ -19,8 +19,8 @@ const VoucherView = () => {
 
   return (
       <div>
-        <Voucher discount={"20% OFF for any product."} onPercentVoucher={onPercentVoucher}/>
-        <Voucher discount={"£20 OFF for any product."} onCurrencyVoucher={onCurrencyVoucher}/>
+        <Voucher discount={"20% OFF for any product."} code={"AB 123XCS"} onPercentVoucher={onPercentVoucher}/>
+        <Voucher discount={"£20 OFF for any product."} code={"AB MN67SD"} onCurrencyVoucher={onCurrencyVoucher}/>
       </div>
   );
 };
