@@ -17,6 +17,7 @@ import {Link} from "react-router-dom";
 import MoneyIcon from '@material-ui/icons/Money';
 import {useDispatch, useSelector} from "react-redux";
 import {selectDrawerClose, selectDrawerOpen} from "../actions/drawerActions";
+import DashboardIcon from '@material-ui/icons/Dashboard';
 
 const drawerWidth = 240;
 
@@ -44,6 +45,7 @@ const ClippedDrawer = () => {
   const {userInfo} = userLogIn;
 
   console.log(drawerOpen);
+  console.log(userInfo.isAdmin);
 
   return (
       <div>
@@ -58,6 +60,16 @@ const ClippedDrawer = () => {
         >
           <Toolbar />
           <div className={classes.drawerContainer}>
+            {userInfo.isAdmin === true && <>
+              <List>
+                <ListItem button key={"Dashboard"} component={Link} to={"/dashboard"}>
+                  <ListItemIcon><DashboardIcon/></ListItemIcon>
+                  <ListItemText primary={"Dashboard"}/>
+                </ListItem>
+              </List>
+              <Divider/>
+            </>
+            }
             <List>
               <ListItem button key={"Best Sellers"} component={Link} to={"/"}>
                 <ListItemIcon><WhatshotIcon/></ListItemIcon>

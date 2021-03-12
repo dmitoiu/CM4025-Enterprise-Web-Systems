@@ -6,7 +6,7 @@ const protect = async (req, res, next) => {
   let decoded;
   let user;
   let authorization = req.headers.authorization;
-  if(authorization && authorization.startsWith("Active")){
+  if(authorization && authorization.startsWith("Bearer")){
     try{
       token = authorization.split(" ")[1];
       decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -24,4 +24,16 @@ const protect = async (req, res, next) => {
   }
 }
 
-module.exports = protect;
+const admin = async (req, res, next) => {
+  try{
+    if(req.user && req.user.isAdmin){
+      next();
+    } else {
+      res.send(401);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+module.exports = {protect, admin};

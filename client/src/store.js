@@ -5,6 +5,7 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import {authLogInReducer, authRegisterReducer} from "./reducers/authReducers";
 import {voucherReducer} from "./reducers/voucherReducers";
+import {voucherDataReducer} from "./reducers/voucherReducers";
 import {drawerReducer} from "./reducers/drawerReducers";
 
 const getUserInfoStorage = sessionStorage.getItem("authDetails") ?
@@ -20,6 +21,7 @@ const reducers = combineReducers({
   authLogIn: authLogInReducer,
   authRegister: authRegisterReducer,
   voucher: voucherReducer,
+  voucherData: voucherDataReducer,
   drawerOpen: drawerReducer
 });
 

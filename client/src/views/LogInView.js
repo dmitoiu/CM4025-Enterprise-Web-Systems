@@ -23,6 +23,10 @@ import {useDispatch} from "react-redux";
 import {useSelector} from "react-redux";
 import {logIn} from "../actions/authActions";
 import Alert from '@material-ui/lab/Alert';
+import Carousel from "react-material-ui-carousel";
+import Paper from "@material-ui/core/Paper";
+import CardMedia from "@material-ui/core/CardMedia";
+import products from "../constants/products";
 
 const rguTheme = createMuiTheme({
   palette: {
@@ -33,11 +37,32 @@ const rguTheme = createMuiTheme({
 });
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    width: "100%",
+    height: "100%"
+  },
   paper: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: "40px"
+    padding: "40px",
+    maxHeight: "507px"
+  },
+  carousel: {
+    width: "100%",
+    height: "100%"
+  },
+  carouselPaper: {
+    width: "100%",
+    height: "507px",
+    paddingTop: "0px",
+    paddingBottom: "0px"
+  },
+  media: {
+    height: 0,
+    paddingTop: '52.25%', // 16:9
+    backgroundSize: "100%"
   },
   link: {
     textDecoration: "none",
@@ -55,6 +80,34 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
+
+function WelcomeCarousel(props)
+{
+  const classes = useStyles();
+  var items = products;
+
+  return (
+      <Carousel className={classes.carousel} interval={5000}>
+        {
+          items.map( (item, i) => <Item key={i} item={item} /> )
+        }
+      </Carousel>
+  )
+}
+
+function Item(props)
+{
+  const classes = useStyles();
+  return (
+      <Paper className={classes.carouselPaper}>
+        <CardMedia
+            className={classes.media}
+            image={props.item.image}
+            title={props.item.name}
+        />
+      </Paper>
+  )
+}
 
 const LogInView = () => {
   const classes = useStyles();
@@ -82,21 +135,22 @@ const LogInView = () => {
 
   return (
       <ThemeProvider theme={rguTheme}>
-        <Container component="main" maxWidth="sm">
+        <div className={classes.root}>
           <CssBaseline />
-          <div>
-            {error ?
-                <div className={classes.root}>
-                  <Alert variant="filled" severity="error">
-                    Username or Password is incorrect.
-                  </Alert>
-                </div>
-                :
-              <Typography variant={"h5"}>
-              </Typography>
-            }
-          </div>
+          <WelcomeCarousel className={classes.carousel}/>
           <Card className={classes.paper}>
+            <div style={{width: "100%"}}>
+              {error ?
+                  <div>
+                    <Alert variant="filled" severity="error">
+                      Username or Password is incorrect.
+                    </Alert>
+                  </div>
+                  :
+                  <Typography variant={"h5"}>
+                  </Typography>
+              }
+            </div>
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
             </Avatar>
@@ -154,7 +208,7 @@ const LogInView = () => {
               </Grid>
             </form>
           </Card>
-        </Container>
+        </div>
       </ThemeProvider>
   );
 };

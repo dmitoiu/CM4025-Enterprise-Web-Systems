@@ -1,4 +1,12 @@
-import {VOUCHER_FAIL, VOUCHER_REQUEST, VOUCHER_SUCCESS} from "../constants/voucherConstants";
+import {
+  VOUCHER_DATA_FAIL,
+  VOUCHER_DATA_REQUEST,
+  VOUCHER_DATA_SUCCESS,
+  VOUCHER_FAIL,
+  VOUCHER_REQUEST,
+  VOUCHER_SUCCESS
+} from "../constants/voucherConstants";
+import auth from "../helpers/authHelper";
 
 /**
  * Voucher
@@ -23,7 +31,7 @@ const increaseVoucherClicks = (voucherName) => async (dispatch) => {
       name: voucherName,
     }
 
-    let response = await fetch("/api/vouchers", {
+    let response = await fetch("/api/vouchers/update", {
       method: method,
       headers: headers,
       body:JSON.stringify(data)
@@ -49,4 +57,41 @@ const increaseVoucherClicks = (voucherName) => async (dispatch) => {
   }
 }
 
-export {increaseVoucherClicks};
+const getVouchers = () => async (dispatch, getState) => {
+  try{
+    dispatch({
+      type: VOUCHER_DATA_REQUEST
+    })
+
+    const method = "GET";
+
+    const headers = {
+      "Authorization": `Bearer ${auth.isAuthenticated().token}`,
+    }
+
+    let response = await fetch("/api/vouchers", {
+      method: method,
+      headers: headers,
+    });
+
+    let result = await response.json();
+
+    if(result.error == null){
+      dispatch({
+        type: VOUCHER_DATA_SUCCESS,
+        payload: result
+      })
+
+    } else {
+      dispatch({
+        type: VOUCHER_DATA_FAIL,
+        payload: result.error
+      })
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export {increaseVoucherClicks, getVouchers};

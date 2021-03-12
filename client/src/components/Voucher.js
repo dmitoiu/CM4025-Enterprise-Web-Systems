@@ -112,7 +112,7 @@ const Voucher = (props) => {
             <DialogTitle id="alert-dialog-slide-title">{"Voucher"}</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-slide-description">
-                Code: AB12 T34
+                Code: {props.code}
               </DialogContentText>
             </DialogContent>
             <DialogActions>
