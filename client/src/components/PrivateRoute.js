@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------
+// Darie-Dragos Mitoiu
+// RGU eShop (PrivateRoute.js) v1.0.0 13/03/2021
+// A web application designed for a ecommerce shop
+// -----------------------------------------------------------------------
+
+// Importing components
 import React from 'react';
 import auth from "../helpers/authHelper";
 import { Route, Redirect } from 'react-router-dom'

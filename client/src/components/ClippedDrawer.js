@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------
+// Darie-Dragos Mitoiu
+// RGU eShop (ClippedDrawer.js) v1.0.0 13/03/2021
+// A web application designed for a ecommerce shop
+// -----------------------------------------------------------------------
+
+// Importing components
 import React from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import Toolbar from "@material-ui/core/Toolbar";

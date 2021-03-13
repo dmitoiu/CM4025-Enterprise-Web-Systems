@@ -1,5 +1,18 @@
+// -----------------------------------------------------------------------
+// Darie-Dragos Mitoiu
+// RGU eShop (voucherController.js) v1.0.0 13/03/2021
+// A web application designed for a ecommerce shop
+// -----------------------------------------------------------------------
+
+// Importing libraries and utilities
 var Voucher = require("../models/voucherModel");
 
+/**
+ * Increase Voucher Interest
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
 const updateVoucher = async (req, res) => {
   try{
     const voucherName = req.body.name;
@@ -22,6 +35,12 @@ const updateVoucher = async (req, res) => {
   }
 }
 
+/**
+ * Retrieves vouchers data
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
 const getVouchers = async (req, res) => {
   const vouchers = await Voucher.find({});
   res.json(vouchers);

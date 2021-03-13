@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------
+// Darie-Dragos Mitoiu
+// RGU eShop (LogInView.js) v1.0.0 13/03/2021
+// A web application designed for a ecommerce shop
+// -----------------------------------------------------------------------
+
+// Importing components
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -15,7 +22,6 @@ import Card from "@material-ui/core/Card";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {ThemeProvider} from "@material-ui/styles";
 import { Link } from "react-router-dom";
-import authController from "../controllers/authController";
 import { useState, useEffect } from 'react';
 import {useHistory} from "react-router-dom";
 import auth from "../helpers/authHelper";
