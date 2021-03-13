@@ -16,7 +16,7 @@ import {ThemeProvider} from "@material-ui/styles";
 import Card from "@material-ui/core/Card";
 import {Link, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {register} from "../actions/authActions";
+import {logIn, register} from "../actions/authActions";
 import validator from "validator";
 
 const rguTheme = createMuiTheme({
@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -75,11 +74,11 @@ const RegisterView = () => {
 
   // Declare and assign values for error state message values
   const errorStateValues = {
-    nameError: "",
-    usernameError: "",
-    emailError: "",
-    passwordError: "",
-    confirmPasswordError: ""
+    nameError: " ",
+    usernameError: " ",
+    emailError: " ",
+    passwordError: " ",
+    confirmPasswordError: " "
   }
 
   // Create state modifiers
@@ -99,9 +98,17 @@ const RegisterView = () => {
 
   useEffect(() => {
     if(userInfo){
-      history.push("/")
+      history.push("/login")
     }
-  }, [history, userInfo])
+    if(error){
+      if(error.includes("username")){
+        errorField("usernameError", "This username is already used");
+      }
+      if(error.includes("email")){
+        errorField("emailError", "This email is already used");
+      }
+    }
+  }, [history, error, userInfo])
 
   /**
    * Field Error
@@ -135,57 +142,84 @@ const RegisterView = () => {
       [fieldName]: false}));
     setErrorDataValues( errorDataValues => ({
       ...errorDataValues,
-      [fieldName]: ""}));
+      [fieldName]: " "}));
   }
 
-  const onRegisterButton = async (event) => {
-    event.preventDefault();
+  /**
+   * Registration Form Validation
+   * Reference: https://github.com/CM2104-DynamicWebDevelopment/
+   *            cm2104-group-web-app-unt/blob/master/final/public
+   *            /js/main.js
+   * Adapted from previous work to fit React
+   */
+  const validateRegisterForm = () => {
+    let validForm = true;
     if(!formData.name) {
+      validForm = false;
       errorField("nameError", "Please enter your full name.");
     } else {
       successField("nameError");
-      if(!validator.isAlpha(formData.name)) {
+      if(!validator.isAlpha(formData.name, ["en-GB"], {
+        ignore: " -"
+      })) {
+        validForm = false;
         errorField("nameError", "Please enter alphabetical characters only.");
       }
     }
     if(!formData.username){
+      validForm = false;
       errorField("usernameError", "Please enter your username.");
     } else {
       successField("usernameError");
       if(!validator.isAlphanumeric("usernameError")){
+        validForm = false;
         errorField("usernameError", "Please enter alphabetical and numerical characters only.");
       }
     }
     if(!formData.email){
+      validForm = false;
       errorField("emailError", "Please enter your email.");
     } else {
       successField("emailError");
       if(!validator.isEmail(formData.email)){
+        validForm = false;
         errorField("emailError", "Please enter a valid email format.");
       }
     }
     if(!formData.password){
+      validForm = false;
       errorField("passwordError", "Please enter your password.");
     } else {
       if(formData.password.length < 8){
+        validForm = false;
         errorField("passwordError", "The password must be at least eight characters long.");
       } else {
         successField("passwordError");
         if(!validator.isStrongPassword(formData.password)){
+          validForm = false;
           errorField("passwordError", "Please enter a stronger password.");
         }
       }
     }
     if(!formData.confirmPassword){
+      validForm = false;
       errorField("confirmPasswordError", "Please confirm your password.");
     } else {
       successField("confirmPasswordError");
-      if(!formData.password.match(formData.confirmPassword)){
-        errorField("confirmPasswordError", "Please confirm your password.");
+      if(formData.password !== formData.confirmPassword){
+        validForm = false;
+        errorField("confirmPasswordError", "Passwords do not match.");
       }
     }
-    console.log(validator.isEmail(formData.email));
-    //await dispatch(register(formData.name, formData.username, formData.email, formData.password))
+    return validForm;
+  }
+
+  const onRegisterButton = async (event) => {
+    event.preventDefault();
+    let validForm = validateRegisterForm();
+    if(validForm){
+      await dispatch(register(formData.name, formData.username, formData.email, formData.password))
+    }
   }
 
   return (

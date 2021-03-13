@@ -38,10 +38,23 @@ const registerUser = async (req, res) => {
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
-    const userExists = await User.findOne({username});
-
+    const userExists = await User.findOne({
+      $or: [
+            {username: username},
+            {email: email}
+          ]
+    });
+    let error = "";
     if(userExists){
-      res.send(401);
+      if(userExists.username === username){
+        error = "username ";
+      }
+      if(userExists.email === email){
+        error += "email"
+      }
+      res.status(401).json({
+        error: error
+      });
       console.log("User exists already.");
     } else {
       const user = await User.create({

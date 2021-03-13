@@ -104,7 +104,7 @@ const register = (formName, formUsername, formEmail, formPassword) => async (dis
         type: AUTH_REGISTER_SUCCESS,
         payload: result
       })
-      auth.authenticate(result.token);
+      auth.authenticate(result);
     } else {
       dispatch({
         type: AUTH_REGISTER_FAIL,
