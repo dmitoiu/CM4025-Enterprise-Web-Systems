@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------
+// Darie-Dragos Mitoiu
+// RGU eShop (DashboardView.js) v1.0.0 13/03/2021
+// A web application designed for a ecommerce shop
+// -----------------------------------------------------------------------
+
+// Importing components
 import React, {useEffect} from 'react';
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";

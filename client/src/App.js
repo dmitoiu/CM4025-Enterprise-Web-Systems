@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------------
+// Darie-Dragos Mitoiu
+// RGU eShop (App.js) v1.0.0 13/03/2021
+// A web application designed for a ecommerce shop
+// -----------------------------------------------------------------------
+
 import React, {useEffect} from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";

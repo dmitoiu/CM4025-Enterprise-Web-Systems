@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------
+// Darie-Dragos Mitoiu
+// RGU eShop (users.js) v1.0.0 13/03/2021
+// A web application designed for a ecommerce shop
+// -----------------------------------------------------------------------
+
+// Importing libraries and utilities
 var express = require('express');
 var router = express.Router();
 const authController = require("../controllers/authController")

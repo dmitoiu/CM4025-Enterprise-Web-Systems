@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------
+// Darie-Dragos Mitoiu
+// RGU eShop (HomeView.js) v1.0.0 13/03/2021
+// A web application designed for a ecommerce shop
+// -----------------------------------------------------------------------
+
+// Importing components
 import React from 'react';
 import products from "../constants/products";
 import Product from "../components/Product";

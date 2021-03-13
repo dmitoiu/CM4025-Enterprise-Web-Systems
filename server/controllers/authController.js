@@ -1,12 +1,30 @@
+// -----------------------------------------------------------------------
+// Darie-Dragos Mitoiu
+// RGU eShop (authController.js) v1.0.0 13/03/2021
+// A web application designed for a ecommerce shop
+// -----------------------------------------------------------------------
+
+// Importing libraries and utilities
 var User = require("../models/userModel");
 var jwt = require("jsonwebtoken");
 
+/**
+ * Generate user token
+ * @param id
+ * @returns {undefined|*}
+ */
 const generateToken = (id) => {
   return jwt.sign({id}, process.env.JWT_SECRET, {
     expiresIn: "7d"
   });
 }
 
+/**
+ * Log In
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
 const logInUser = async (req, res) => {
   try{
     const username = req.body.username;
@@ -32,6 +50,12 @@ const logInUser = async (req, res) => {
   }
 }
 
+/**
+ * Register
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
 const registerUser = async (req, res) => {
   try{
     const name = req.body.name;
@@ -83,6 +107,12 @@ const registerUser = async (req, res) => {
   }
 }
 
+/**
+ * Get User Details
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
 const getProfile = async (req, res) => {
   let user = await User.findById(req.user._id);
   if(user){

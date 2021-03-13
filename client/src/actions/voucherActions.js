@@ -1,3 +1,10 @@
+// -----------------------------------------------------------------------
+// Darie-Dragos Mitoiu
+// RGU eShop (voucherActions.js) v1.0.0 13/03/2021
+// A web application designed for a ecommerce shop
+// -----------------------------------------------------------------------
+
+// Importing components
 import {
   VOUCHER_DATA_FAIL,
   VOUCHER_DATA_REQUEST,

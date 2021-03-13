@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------------
+// Darie-Dragos Mitoiu
+// RGU eShop (store.js) v1.0.0 13/03/2021
+// A web application designed for a ecommerce shop
+// -----------------------------------------------------------------------
+
 import {createStore} from "redux";
 import {combineReducers} from "redux";
 import {applyMiddleware} from "redux";
