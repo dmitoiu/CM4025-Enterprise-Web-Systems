@@ -61,32 +61,35 @@ const Product = ({product}) => {
   return (
       <div>
         <ThemeProvider theme={rguTheme}>
-          <Card className={classes.root}>
-            <Link to={`/product/${product._id}`}>
-              <CardMedia
-                  className={classes.media}
-                  image={product.image}
-                  title={product.name}
-              />
-            </Link>
-            <CardContent>
-              <Link to={`/product/${product._id}`}>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                  {product.name}
-                </Typography>
+          {product && <>
+            <Card className={classes.root}>
+              <Link to={`/product/${product.id}`}>
+                <CardMedia
+                    className={classes.media}
+                    image={product.media.source}
+                    title={product.name}
+                />
               </Link>
-              <Typography variant="h5" component="h2">
-                £{product.price}
-              </Typography>
-              <Typography className={classes.pos} color="textSecondary">
-                Stock: {product.stock}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button variant={"contained"} color={"primary"} component={Link}
-                      to={`/product/${product._id}`} size="small">Learn More</Button>
-            </CardActions>
-          </Card>
+              <CardContent>
+                <Link to={`/product/${product.id}`}>
+                  <Typography className={classes.title} color="textSecondary" gutterBottom>
+                    {product.name}
+                  </Typography>
+                </Link>
+                <Typography variant="h5" component="h2">
+                  £{product.price.raw}
+                </Typography>
+                <Typography className={classes.pos} color="textSecondary">
+                  Stock: {product.inventory.available}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button variant={"contained"} color={"primary"} component={Link}
+                        to={`/product/${product.id}`} size="small">Learn More</Button>
+              </CardActions>
+            </Card>
+          </>
+          }
         </ThemeProvider>
       </div>
   );

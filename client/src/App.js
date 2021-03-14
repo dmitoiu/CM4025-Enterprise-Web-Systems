@@ -37,6 +37,7 @@ import clsx from "clsx";
 import {useDispatch, useSelector} from "react-redux";
 import {selectDrawerClose, selectDrawerOpen} from "./actions/drawerActions";
 import DashboardView from "./views/DashboardView";
+import ElectronicsView from "./views/ElectronicsView";
 
 const drawerWidth = 240;
 
@@ -109,7 +110,7 @@ const App = () => {
                 [classes.contentShift]: drawerOpen.drawerOpen,})}
           >
             <Toolbar />
-            <Route path="/" component={HomeView} exact/>
+            <Route path="/" component={ElectronicsView} exact/>
             <Route path="/login" component={LogInView} exact/>
             <Route path="/register" component={RegisterView} exact/>
             <Route path="/product/:id" component={ProductView}/>
