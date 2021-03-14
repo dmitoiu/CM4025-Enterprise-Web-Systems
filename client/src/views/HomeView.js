@@ -5,13 +5,13 @@
 // -----------------------------------------------------------------------
 
 // Importing components
-import React from 'react';
-import products from "../constants/products";
+import React, {useEffect, useState} from 'react';
 import Product from "../components/Product";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import {commerce} from "../lib/commerce";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +29,19 @@ const useStyles = makeStyles((theme) => ({
 
 const HomeView = () => {
   const classes = useStyles();
+  const [products, setProducts] = useState([]);
+
+  const fetchProducts = async () => {
+    const {data} = await commerce.products.list();
+    setProducts(data);
+  }
+
+  useEffect(() => {
+    fetchProducts();
+  }, [])
+
+  console.log(products);
+
   return (
       <div className={classes.root}>
         <Typography variant={"h4"}>

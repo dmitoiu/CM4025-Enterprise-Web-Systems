@@ -78,13 +78,9 @@ const ClippedDrawer = () => {
             </>
             }
             <List>
-              <ListItem button key={"Best Sellers"} component={Link} to={"/"}>
-                <ListItemIcon><WhatshotIcon/></ListItemIcon>
-                <ListItemText primary={"Best Sellers"}/>
-              </ListItem>
-              <ListItem button key={"New Releases"} component={Link} to={"/new"}>
-                <ListItemIcon><NewReleases/></ListItemIcon>
-                <ListItemText primary={"New Releases"}/>
+              <ListItem button key={"Electronics"} component={Link} to={"/electronics"}>
+                <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
+                <ListItemText primary={"Electronics"}/>
               </ListItem>
             </List>
             <Divider />
@@ -98,20 +94,6 @@ const ClippedDrawer = () => {
               <Divider/>
               </>
             }
-            <List>
-              <ListItem button key={"Electronics"} component={Link} to={"/electronics"}>
-                <ListItemIcon><ImportantDevicesIcon/></ListItemIcon>
-                <ListItemText primary={"Electronics"}/>
-              </ListItem>
-              <ListItem button key={"Books"} component={Link} to={"/books"}>
-                <ListItemIcon><LibraryBooksIcon/></ListItemIcon>
-                <ListItemText primary={"Books"}/>
-              </ListItem>
-              <ListItem button key={"Films, TV & Music"} component={Link} to={"/media"}>
-                <ListItemIcon><MovieIcon/></ListItemIcon>
-                <ListItemText primary={"Films, TV & Music"}/>
-              </ListItem>
-            </List>
           </div>
         </Drawer>
       </div>
