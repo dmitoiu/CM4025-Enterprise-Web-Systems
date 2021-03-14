@@ -13,6 +13,7 @@ import {ThemeProvider} from "@material-ui/styles";
 import AppBar from "@material-ui/core/AppBar";
 import {makeStyles} from "@material-ui/core/styles";
 
+// Create styles
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+// Create style
 const style = {
     display: "flex",
     justifyContent: "center",
@@ -40,6 +42,7 @@ const style = {
     height: "64px"
 }
 
+// Create theme
 const rguTheme = createMuiTheme({
     palette: {
         primary: {
@@ -49,12 +52,17 @@ const rguTheme = createMuiTheme({
 });
 
 const Footer = () => {
+    // Access styles
     const classes = useStyles();
     return (
         <div style={style}>
+            {/* Create theme container */}
             <ThemeProvider theme={rguTheme}>
+                {/* Create footer bar */}
                 <AppBar position={"bottom"} className={classes.appBar}>
+                    {/* Create tool bar */}
                     <Toolbar>
+                        {/* Create footer text */}
                         <Typography>
                             Copyright &copy; 2021 RGU eShop. All rights reserved.
                         </Typography>

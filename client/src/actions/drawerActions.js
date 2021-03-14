@@ -9,6 +9,7 @@ import {DRAWER_OPEN, DRAWER_CLOSE} from "../constants/drawerConstants";
 
 const selectDrawerOpen = (value) => async (dispatch) => {
   try{
+    // Open Drawer dispatch
     dispatch({
       type: DRAWER_OPEN,
       value
@@ -20,6 +21,7 @@ const selectDrawerOpen = (value) => async (dispatch) => {
 
 const selectDrawerClose = (value) => async (dispatch) => {
   try{
+    // Close drawer dispatch
     dispatch({
       type: DRAWER_CLOSE,
       value

@@ -23,66 +23,81 @@ import auth from "../helpers/authHelper";
  */
 const increaseVoucherClicks = (voucherName) => async (dispatch) => {
   try{
+    // Dispatch voucher reuest
     dispatch({
       type: VOUCHER_REQUEST
     })
 
+    // Create request method
     const method = "POST";
 
+    // Create request headers
     const headers = {
       "Accept": "application/json",
       "Content-Type": "application/json"
     }
 
+    // Create request body
     const data = {
       name: voucherName,
     }
 
+    // Create complete request
     let response = await fetch("/api/vouchers/update", {
       method: method,
       headers: headers,
       body:JSON.stringify(data)
     });
 
+    // Get result as json
     let result = await response.json();
 
+    // IF there is no error, dispatch success
     if(result.error == null){
       dispatch({
         type: VOUCHER_SUCCESS,
         payload: result
       })
-
     } else {
       dispatch({
         type: VOUCHER_FAIL,
         payload: result.error
       })
     }
-
   } catch (error) {
     console.log(error);
   }
 }
 
+/**
+ * Get all vouchers and their interest count
+ * @returns {function(...[*]=)}
+ */
 const getVouchers = () => async (dispatch, getState) => {
   try{
+    // Get voucher data request
     dispatch({
       type: VOUCHER_DATA_REQUEST
     })
 
+    // Crete request method
     const method = "GET";
 
+    // Create request headers
     const headers = {
       "Authorization": `Bearer ${auth.isAuthenticated().token}`,
     }
 
+    // Create complete request
     let response = await fetch("/api/vouchers", {
       method: method,
       headers: headers,
     });
 
+    // Get result as json
     let result = await response.json();
 
+    // If there is no error, dispatch success
     if(result.error == null){
       dispatch({
         type: VOUCHER_DATA_SUCCESS,
@@ -95,7 +110,6 @@ const getVouchers = () => async (dispatch, getState) => {
         payload: result.error
       })
     }
-
   } catch (error) {
     console.log(error);
   }

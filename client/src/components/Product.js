@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {ThemeProvider} from "@material-ui/styles";
 
+// Create local style
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -40,6 +41,7 @@ const useStyles = makeStyles({
   },
 });
 
+// Create theme
 const rguTheme = createMuiTheme({
   palette: {
     primary: {
@@ -60,9 +62,13 @@ const Product = ({product}) => {
   const classes = useStyles();
   return (
       <div>
+        {/* Create theme container */}
         <ThemeProvider theme={rguTheme}>
+          {/* If there is a product, continue... */}
           {product && <>
+            {/* Create card */}
             <Card className={classes.root}>
+              {/* Create link for the image towards the product id */}
               <Link to={`/product/${product.id}`}>
                 <CardMedia
                     className={classes.media}
@@ -70,20 +76,26 @@ const Product = ({product}) => {
                     title={product.name}
                 />
               </Link>
+              {/* Create card content */}
               <CardContent>
+                {/* Create link from the product name towards the product id */}
                 <Link to={`/product/${product.id}`}>
                   <Typography className={classes.title} color="textSecondary" gutterBottom>
                     {product.name}
                   </Typography>
                 </Link>
+                {/* Create product price */}
                 <Typography variant="h5" component="h2">
                   £{product.price.raw}
                 </Typography>
+                {/* Create product stock */}
                 <Typography className={classes.pos} color="textSecondary">
                   Stock: {product.inventory.available}
                 </Typography>
               </CardContent>
+              {/* Create card actions section */}
               <CardActions>
+                {/* Create learn more button */}
                 <Button variant={"contained"} color={"primary"} component={Link}
                         to={`/product/${product.id}`} size="small">Learn More</Button>
               </CardActions>

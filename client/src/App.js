@@ -41,6 +41,7 @@ import ElectronicsView from "./views/ElectronicsView";
 
 const drawerWidth = 240;
 
+// Create local styles
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -79,44 +80,67 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
+  // Get drawer state
   const drawerOpen = useSelector(state => state.drawerOpen);
+  // Get authentication state
   const userLogIn = useSelector(state => state.authLogIn);
+  // Get user details
   const {loading, error, userInfo} = userLogIn;
+  // Create dispatcher
   const dispatch = useDispatch();
 
-  const handleDrawerOpen = () => {
+  /**
+   * Open Drawer
+  **/
+   const handleDrawerOpen = () => {
     dispatch(selectDrawerOpen(true));
   }
 
+  /**
+   * Close Drawer
+   **/
   const handleDrawerClose = () => {
     dispatch(selectDrawerClose(false))
   }
 
+  /**
+   * Initial render operations
+   **/
   useEffect(() => {
     if(!userInfo){
+      // if user is logged in, open drawer
       handleDrawerOpen();
     }
   }, [userInfo])
 
   return (
+      // Create application root container
       <div className={classes.root}>
+        {/* Create application router */}
         <Router>
           <CssBaseline />
+          {/* Create application header */}
           <Header/>
+          {/* If use is logged in create application drawer */}
           {userInfo &&
               <ClippedDrawer/>
           }
+          {/* Create and style main content based on drawer state */}
           <main className={clsx(classes.content, {
                 [classes.contentShift]: drawerOpen.drawerOpen,})}
           >
+            {/* Create application toolbar */}
             <Toolbar />
+            {/* Create application public routes */}
             <Route path="/" component={ElectronicsView} exact/>
             <Route path="/login" component={LogInView} exact/>
             <Route path="/register" component={RegisterView} exact/>
-            <Route path="/product/:id" component={ProductView}/>
+            {/* Create application private routes (user must be logged in) */}
+            <PrivateRoute path="/product/:id" component={ProductView}/>
             <PrivateRoute path="/vouchers" component={VoucherView}/>
             <PrivateRoute path="/dashboard" component={DashboardView}/>
           </main>
+          {/* Create application footer */}
           <Footer/>
         </Router>
       </div>
