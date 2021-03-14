@@ -16,7 +16,7 @@ import auth from "../helpers/authHelper";
 
 /**
  * Authentication Log In Post request
- * Purpose: Logs in a user
+ * Purpose: Log in a user
  * @param formUsername
  * @param formPassword
  * @returns {function(...[*]=)}
@@ -27,35 +27,43 @@ import auth from "../helpers/authHelper";
  */
 const logIn = (formUsername, formPassword) => async (dispatch) => {
   try{
+    // Create login request dispatch
     dispatch({
       type: AUTH_LOGIN_REQUEST
     })
 
+    // Create request method
     const method = "POST";
 
+    // Crete request headers
     const headers = {
       "Accept": "application/json",
       "Content-Type": "application/json"
     }
 
+    // Create request body
     const data = {
       username: formUsername,
       password: formPassword
     }
 
+    // Create complete request
     let response = await fetch("/api/users/login", {
       method: method,
       headers: headers,
       body:JSON.stringify(data)
     });
 
+    // Get response as json
     let result = await response.json();
 
+    // If there is no error, user data is found and dispatch success
     if(result.error == null){
       dispatch({
         type: AUTH_LOGIN_SUCCESS,
         payload: result
       })
+      // Store user data in session store
       auth.authenticate(result);
     } else {
       dispatch({
@@ -63,7 +71,6 @@ const logIn = (formUsername, formPassword) => async (dispatch) => {
         payload: result.error
       })
     }
-
   } catch (error) {
     console.log(error);
   }
@@ -84,33 +91,45 @@ const logIn = (formUsername, formPassword) => async (dispatch) => {
  */
 const register = (formName, formUsername, formEmail, formPassword) => async (dispatch) => {
   try{
+    // Create register dispatch request
     dispatch({
       type: AUTH_REGISTER_REQUEST
     })
+
+    // Create method of request
     const method = "POST";
+
+    // Create request headers
     const headers = {
       "Accept": "application/json",
       "Content-Type": "application/json"
     }
+
+    // Create request body
     const data = {
       name: formName,
       username: formUsername,
       email: formEmail,
       password: formPassword
     }
+
+    // Create complete request
     let response = await fetch("/api/users", {
       method: method,
       headers: headers,
       body:JSON.stringify(data)
     });
 
+    // Get response as json
     let result = await response.json();
 
+    // If there is no error, dispatch success
     if(result.error == null){
       dispatch({
         type: AUTH_REGISTER_SUCCESS,
         payload: result
       })
+      // Store user data in session store
       auth.authenticate(result);
     } else {
       dispatch({
@@ -130,7 +149,9 @@ const register = (formName, formUsername, formEmail, formPassword) => async (dis
  * @returns {function(...[*]=)}
  */
 const logOut = () => (dispatch) => {
+  // Delete user data from session store
   auth.clearJWT();
+  // Dispatch log out
   dispatch({type: AUTH_LOGOUT});
 }
 

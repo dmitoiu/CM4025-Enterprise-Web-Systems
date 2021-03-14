@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import products from "../constants/products";
 import Product from "../components/Product";
 
+// Create local styles
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -21,11 +22,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ElectronicsView = () => {
+  // Access styles
   const classes = useStyles();
+  // Create products state
   const [products, setProducts] = useState([]);
 
+  /**
+   * Fetch products from API
+   * @returns {Promise<void>}
+   */
   const fetchProducts = async () => {
+    // Get products
     const {data} = await commerce.products.list();
+    // Update products state
     setProducts(data);
   }
 
@@ -33,14 +42,15 @@ const ElectronicsView = () => {
     fetchProducts();
   }, [])
 
-  console.log(products);
-
   return (
       <div className={classes.root}>
+        {/* Create page title */}
         <Typography variant={"h4"}>
           Electronics
         </Typography>
+        {/* If there is data to show, continue... */}
         {products.length >= 1 ? <>
+          {/* Create product item if the product it is in the electronics category */}
           <Grid className={classes.product} container spacing={3}>
             {products.map((product) => {
               if(product.categories["0"].name.match("Electronics")) {

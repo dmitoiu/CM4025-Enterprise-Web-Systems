@@ -34,6 +34,7 @@ import Paper from "@material-ui/core/Paper";
 import CardMedia from "@material-ui/core/CardMedia";
 import products from "../constants/products";
 
+// Create rgu theme
 const rguTheme = createMuiTheme({
   palette: {
     primary: {
@@ -42,6 +43,7 @@ const rguTheme = createMuiTheme({
   },
 });
 
+// Create local styles
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -87,8 +89,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+/**
+ * Create Log in Carousel
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 function WelcomeCarousel(props)
 {
+  // Access styles
   const classes = useStyles();
   var items = products;
 
@@ -101,6 +110,12 @@ function WelcomeCarousel(props)
   )
 }
 
+/**
+ * Carousel Item
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 function Item(props)
 {
   const classes = useStyles();
@@ -116,35 +131,58 @@ function Item(props)
 }
 
 const LogInView = () => {
+  // Access styles
   const classes = useStyles();
+  // Create history
   const history = useHistory();
+  // Create initial state
   const initialState = {username: "", password: ""};
+  // Create form data state
   const [formData, setFormData] = useState(initialState);
+  // Create dispatcher
   const dispatch = useDispatch();
+  // Get log in state
   const userLogIn = useSelector(state => state.authLogIn);
+  // Get log in state data
   const {loading, error, userInfo} = userLogIn;
 
+  /**
+   * Update form data state on form change
+   * @param e
+   */
   const handleOnChange = (e) => {
     setFormData({ ... formData, [e.target.name]: e.target.value})
   }
 
   useEffect(() => {
     if(userInfo){
+      // Send user to initial page if is logged in
       history.push("/")
     }
   }, [history, userInfo])
 
+  /**
+   * Log in the user
+   * @param event
+   * @returns {Promise<void>}
+   */
   const onLogInButton = async (event) => {
+    // Stop page refresh
     event.preventDefault();
+    // Log in the user
     await dispatch(logIn(formData.username, formData.password))
   }
 
   return (
       <ThemeProvider theme={rguTheme}>
+        {/* Create root container */}
         <div className={classes.root}>
           <CssBaseline />
+          {/* Create welcome carousel */}
           <WelcomeCarousel className={classes.carousel}/>
+          {/* Create material-ui card */}
           <Card className={classes.paper}>
+            {/* Create invalid user alert container */}
             <div style={{width: "100%"}}>
               {error ?
                   <div>
@@ -157,12 +195,15 @@ const LogInView = () => {
                   </Typography>
               }
             </div>
+            {/* Create log in form image */}
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
             </Avatar>
+            {/* Create form title */}
             <Typography component="h1" variant="h5">
               Log in
             </Typography>
+            {/* Create log in form */}
             <form className={classes.form} noValidate onSubmit={onLogInButton}>
               <TextField
                   variant="outlined"

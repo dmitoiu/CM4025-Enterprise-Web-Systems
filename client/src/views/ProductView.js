@@ -21,6 +21,7 @@ import {ThemeProvider} from "@material-ui/styles";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import {commerce} from "../lib/commerce";
 
+// Create local styles
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -50,6 +51,7 @@ const useStyles = makeStyles({
   },
 });
 
+// Create theme
 const rguTheme = createMuiTheme({
   palette: {
     primary: {
@@ -59,9 +61,15 @@ const rguTheme = createMuiTheme({
 });
 
 const ProductView = ({match}) => {
+  // Access styles
   const classes = useStyles();
+  // Create products state
   const [products, setProducts] = useState([]);
 
+  /**
+   * Fetch products from API
+   * @returns {Promise<void>}
+   */
   const fetchProducts = async () => {
     const {data} = await commerce.products.list();
     setProducts(data);
@@ -71,8 +79,7 @@ const ProductView = ({match}) => {
     fetchProducts();
   }, [])
 
-  console.log(products);
-
+  // Find product using the id from the url in the products returned by the API
   const product = products.find((p) => p.id === match.params.id);
   return (
       <div>

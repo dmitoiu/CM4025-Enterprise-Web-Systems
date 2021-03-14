@@ -21,6 +21,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Slide from "@material-ui/core/Slide";
 import DialogContent from "@material-ui/core/DialogContent";
 
+// Create local style
 const useStyles = makeStyles({
   root: {
     display: "flex",
@@ -50,6 +51,7 @@ const useStyles = makeStyles({
   }
 });
 
+// Create theme
 const rguTheme = createMuiTheme({
   palette: {
     primary: {
@@ -58,27 +60,42 @@ const rguTheme = createMuiTheme({
   },
 });
 
+// Create slide transition
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const Voucher = (props) => {
+  // Access styles
   const classes = useStyles();
+  // Create open dialog state
   const [open, setOpen] = React.useState(false);
 
+  /**
+   * Open voucher dialog
+   */
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+  /**
+   * Close voucher dialog
+   */
   const handleClose = () => {
     setOpen(false);
   };
 
+  /**
+   * Increase voucher containing the percent indicator
+   */
   const updateVoucherPercent = () => {
     props.onPercentVoucher();
     handleClickOpen();
   }
 
+  /**
+   * Increase voucher containing the currency indicator
+   */
   const updateVoucherCurrency = () => {
     props.onCurrencyVoucher();
     handleClickOpen();
@@ -86,19 +103,27 @@ const Voucher = (props) => {
 
   return (
       <div>
+        {/* Create theme container */}
         <ThemeProvider theme={rguTheme}>
+          {/* Create material-ui card */}
           <Card className={classes.root} variant="outlined">
+            {/* Create voucher details container */}
             <div className={classes.details}>
+              {/* Create card content */}
               <CardContent>
+                {/* Create sale text */}
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                   SALE
                 </Typography>
+                {/* Create discount text */}
                 <Typography variant="h5" component="h2">
                   {props.discount}
                 </Typography>
               </CardContent>
             </div>
+            {/* Create card actions */}
             <CardActions className={classes.actions}>
+              {/* Create the right button based on the voucher name */}
               {props.discount.match("20%") ?
               <Button variant={"contained"} onClick={updateVoucherPercent} color={"primary"} size="small">Get Deal</Button>
                   :
@@ -106,6 +131,7 @@ const Voucher = (props) => {
               }
             </CardActions>
           </Card>
+          {/* Create dialog */}
           <Dialog
               open={open}
               TransitionComponent={Transition}
@@ -116,13 +142,18 @@ const Voucher = (props) => {
               aria-labelledby="alert-dialog-slide-title"
               aria-describedby="alert-dialog-slide-description"
           >
+            {/* Create dialog title */}
             <DialogTitle id="alert-dialog-slide-title">{"Voucher"}</DialogTitle>
+            {/* Create dialog content */}
             <DialogContent>
+              {/* Create dialog text */}
               <DialogContentText id="alert-dialog-slide-description">
                 Code: {props.code}
               </DialogContentText>
             </DialogContent>
+            {/* Create dialog actions */}
             <DialogActions>
+              {/* Create button to close dialog */}
               <Button onClick={handleClose} color="primary">
                 Close
               </Button>
