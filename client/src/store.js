@@ -10,7 +10,7 @@ import {applyMiddleware} from "redux";
 import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import {authLogInReducer, authRegisterReducer} from "./reducers/authReducers";
-import {voucherReducer} from "./reducers/voucherReducers";
+import {voucherReducer, voucherResetReducer} from "./reducers/voucherReducers";
 import {voucherDataReducer} from "./reducers/voucherReducers";
 import {drawerReducer} from "./reducers/drawerReducers";
 
@@ -28,6 +28,7 @@ const reducers = combineReducers({
   authRegister: authRegisterReducer,
   voucher: voucherReducer,
   voucherData: voucherDataReducer,
+  voucherReset: voucherResetReducer,
   drawerOpen: drawerReducer
 });
 

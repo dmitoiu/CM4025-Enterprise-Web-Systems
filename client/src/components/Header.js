@@ -139,9 +139,6 @@ const Header = () => {
                         <Typography variant="h6" className={classes.title}>
                             RGU eShop
                         </Typography>
-                        {/* Create cart button */}
-                        <Button startIcon={<ShoppingCartIcon/>} component={Link} to={"/cart"}
-                                color="inherit">Cart</Button>
                         {/* If user is not logged in show log in button, else show log out */}
                         {!userInfo ? (
                             <Button startIcon={<PersonIcon/>} component={Link} to={"/login"}

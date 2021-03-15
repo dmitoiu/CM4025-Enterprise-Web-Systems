@@ -144,7 +144,7 @@ const LogInView = () => {
   // Get log in state
   const userLogIn = useSelector(state => state.authLogIn);
   // Get log in state data
-  const {loading, error, userInfo} = userLogIn;
+  const {error, userInfo} = userLogIn;
 
   /**
    * Update form data state on form change

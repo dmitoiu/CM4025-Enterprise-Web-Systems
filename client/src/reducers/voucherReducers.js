@@ -10,7 +10,7 @@ import {
   VOUCHER_DATA_REQUEST,
   VOUCHER_DATA_SUCCESS,
   VOUCHER_FAIL,
-  VOUCHER_REQUEST,
+  VOUCHER_REQUEST, VOUCHER_RESET_FAIL, VOUCHER_RESET_REQUEST, VOUCHER_RESET_SUCCESS,
   VOUCHER_SUCCESS
 } from "../constants/voucherConstants";
 
@@ -50,4 +50,22 @@ const voucherDataReducer = (state = {vouchers: []}, action) => {
   }
 }
 
-export {voucherReducer, voucherDataReducer}
+/**
+ * Voucher Interest Count Reset Reducer
+ * @param state
+ * @param action
+ * @returns {{loading: boolean}|{}|{vouchersInfo: *, loading: boolean}|{loading: boolean, error: *}}
+ */
+const voucherResetReducer = (state = {}, action) => {
+  if(action.type.match(VOUCHER_RESET_REQUEST)) {
+    return {loading: true};
+  } else if(action.type.match(VOUCHER_RESET_SUCCESS)) {
+    return {loading: false, vouchersInfo: action.payload}
+  } else if(action.type.match(VOUCHER_RESET_FAIL)) {
+    return {loading: false, error: action.payload}
+  } else {
+    return state;
+  }
+}
+
+export {voucherReducer, voucherDataReducer, voucherResetReducer}

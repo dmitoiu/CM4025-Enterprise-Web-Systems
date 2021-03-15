@@ -97,7 +97,7 @@ const RegisterView = () => {
   const dispatch = useDispatch();
   // Get register state reducer using the redux selector
   const userRegister = useSelector(state => state.authRegister);
-  const {loading, error, userInfo} = userRegister;
+  const {error, userInfo} = userRegister;
 
   const handleOnChange = (e) => {
     setFormData({ ... formData, [e.target.name]: e.target.value})
