@@ -85,7 +85,7 @@ const App = () => {
   // Get authentication state
   const userLogIn = useSelector(state => state.authLogIn);
   // Get user details
-  const {loading, error, userInfo} = userLogIn;
+  const {userInfo} = userLogIn;
   // Create dispatcher
   const dispatch = useDispatch();
 

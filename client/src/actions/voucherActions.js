@@ -17,7 +17,7 @@ import auth from "../helpers/authHelper";
 
 /**
  * Voucher
- * Purpose: this function will increase the voucher that uses percentage as a name
+ * Purpose: this function will increase the voucher interest count
  * @param voucherName
  * @returns {function(...[*]=)}
  */
