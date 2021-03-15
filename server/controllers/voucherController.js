@@ -35,6 +35,12 @@ const updateVoucher = async (req, res) => {
   }
 }
 
+/**
+ * Reset the voucher interest count
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
 const resetVoucher = async (req, res) => {
   try{
     const voucherName = req.body.name;
