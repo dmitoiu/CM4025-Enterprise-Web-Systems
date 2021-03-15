@@ -13,8 +13,10 @@ var updateVoucher = voucherController.updateVoucher;
 var getVouchers = voucherController.getVouchers;
 var protect = authMiddleware.protect;
 var admin = authMiddleware.admin;
+var resetVoucher = voucherController.resetVoucher;
 
 router.route("/").get(protect, admin, getVouchers);
+router.route("/reset").post(protect, admin, resetVoucher);
 router.route("/update").post(updateVoucher);
 
 module.exports = router;

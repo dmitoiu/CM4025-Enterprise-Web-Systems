@@ -14,7 +14,7 @@ const VoucherView = () => {
 
   // Get voucher state
   const userVoucher = useSelector(state => state.voucher);
-  // Get vouher data
+  // Get voucher data
   const {voucherInfo} = userVoucher;
   // Create dispatcher
   const dispatch = useDispatch();

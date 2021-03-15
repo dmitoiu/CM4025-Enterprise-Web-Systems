@@ -10,7 +10,7 @@ import {
   VOUCHER_DATA_REQUEST,
   VOUCHER_DATA_SUCCESS,
   VOUCHER_FAIL,
-  VOUCHER_REQUEST,
+  VOUCHER_REQUEST, VOUCHER_RESET_FAIL, VOUCHER_RESET_REQUEST, VOUCHER_RESET_SUCCESS,
   VOUCHER_SUCCESS
 } from "../constants/voucherConstants";
 import auth from "../helpers/authHelper";
@@ -73,7 +73,7 @@ const increaseVoucherClicks = (voucherName) => async (dispatch) => {
  * Get all vouchers and their interest count
  * @returns {function(...[*]=)}
  */
-const getVouchers = () => async (dispatch, getState) => {
+const getVouchers = () => async (dispatch) => {
   try{
     // Get voucher data request
     dispatch({
@@ -115,4 +115,58 @@ const getVouchers = () => async (dispatch, getState) => {
   }
 }
 
-export {increaseVoucherClicks, getVouchers};
+/**
+ * Reset voucher interest count using the name of the voucher
+ * @param voucherName
+ * @returns {function(...[*]=)}
+ */
+const resetVoucherInterest = (voucherName) => async (dispatch) => {
+  try{
+    // Dispatch voucher request
+    dispatch({
+      type: VOUCHER_RESET_REQUEST
+    })
+
+    // Create request method
+    const method = "POST";
+
+    // Create request headers
+    const headers = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${auth.isAuthenticated().token}`,
+    }
+
+    // Create request body
+    const data = {
+      name: voucherName,
+    }
+
+    // Create complete request
+    let response = await fetch("/api/vouchers/reset", {
+      method: method,
+      headers: headers,
+      body:JSON.stringify(data)
+    });
+
+    // Get result as json
+    let result = await response.json();
+
+    // IF there is no error, dispatch success
+    if(result.error == null){
+      dispatch({
+        type: VOUCHER_RESET_SUCCESS,
+        payload: result
+      })
+    } else {
+      dispatch({
+        type: VOUCHER_RESET_FAIL,
+        payload: result.error
+      })
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export {increaseVoucherClicks, getVouchers, resetVoucherInterest};

@@ -31,10 +31,17 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use("/api/vouchers", discountsRouter);
+
+if(process.env.NODE_ENV === "production"){
+  app.use(express.static(path.join(path.resolve(), "/client/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(path.resolve(), "client", "build", "index.html"))
+  })
+} else {
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.use('/', indexRouter);
+}
 
 module.exports = app;

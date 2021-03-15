@@ -15,8 +15,20 @@ import TableBody from "@material-ui/core/TableBody";
 import withStyles from "@material-ui/core/styles/withStyles";
 import TableCell from "@material-ui/core/TableCell";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {getVouchers} from "../actions/voucherActions";
+import {getVouchers, resetVoucherInterest} from "../actions/voucherActions";
 import {useDispatch, useSelector} from "react-redux";
+import Button from "@material-ui/core/Button";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import {ThemeProvider} from "@material-ui/styles";
+
+// Create rgu theme
+const rguTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#660066",
+    },
+  },
+});
 
 // Create table cell style
 const StyledTableCell = withStyles((theme) => ({
@@ -43,6 +55,12 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  reset: {
+    width: 150,
+    top: "20px",
+    padding: "10px",
+    float: "right"
+  }
 });
 
 const DashboardView = () => {
@@ -60,40 +78,68 @@ const DashboardView = () => {
     dispatch(getVouchers())
   }, [dispatch])
 
+  /**
+   * Reset vouchers interest count
+   */
+  const resetVouchers = async () => {
+    await dispatch(resetVoucherInterest("20%"));
+    await dispatch(resetVoucherInterest("£20"));
+  }
+
+  /**
+   * Reset button action
+   */
+  const onResetButton = async () => {
+    await resetVouchers();
+    dispatch(getVouchers())
+  }
+
   return (
       <div>
-        {/* If there is data to show, continue... */}
-        {vouchersInfo &&
-        <TableContainer component={Paper}>
-          {/* Create table */}
-          <Table className={classes.table} aria-label="customized table">
-            {/* Create table head */}
-            <TableHead>
-              {/* Create table row */}
-              <TableRow>
-                {/* Create table styled cell */}
-                <StyledTableCell>Voucher</StyledTableCell>
-                {/* Create table styled cell */}
-                <StyledTableCell align="right">Interest Count</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {/* Iterate over the vouchers data */}
-              {vouchersInfo.map((row) => (
-                  {/* Create row */} &&
-                  <StyledTableRow key={row.name}>
-                    {/* Create table cell for voucher name */}
-                    <StyledTableCell component="th" scope="row">
-                      {row.name}
-                    </StyledTableCell>
-                    {/* Create table cell for voucher interest */}
-                    <StyledTableCell align="right">{row.interest}</StyledTableCell>
-                  </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        }
+        <ThemeProvider theme={rguTheme}>
+          {/* If there is data to show, continue... */}
+          {vouchersInfo && <>
+            <TableContainer component={Paper}>
+              {/* Create table */}
+              <Table className={classes.table} aria-label="customized table">
+                {/* Create table head */}
+                <TableHead>
+                  {/* Create table row */}
+                  <TableRow>
+                    {/* Create table styled cell */}
+                    <StyledTableCell>Voucher</StyledTableCell>
+                    {/* Create table styled cell */}
+                    <StyledTableCell align="right">Interest Count</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {/* Iterate over the vouchers data */}
+                  {vouchersInfo.map((row) => (
+                      {/* Create row */} &&
+                      <StyledTableRow key={row.name}>
+                        {/* Create table cell for voucher name */}
+                        <StyledTableCell component="th" scope="row">
+                          {row.name}
+                        </StyledTableCell>
+                        {/* Create table cell for voucher interest */}
+                        <StyledTableCell align="right">{row.interest}</StyledTableCell>
+                      </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.reset}
+                onClick={onResetButton}
+            >
+              Reset
+            </Button>
+          </>
+          }
+        </ThemeProvider>
       </div>
   );
 };
