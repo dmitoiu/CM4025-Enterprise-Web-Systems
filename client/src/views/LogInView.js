@@ -33,6 +33,7 @@ import Carousel from "react-material-ui-carousel";
 import Paper from "@material-ui/core/Paper";
 import CardMedia from "@material-ui/core/CardMedia";
 import products from "../constants/products";
+import CommerceCarousel from "../components/CommerceCarousel";
 
 // Create rgu theme
 const rguTheme = createMuiTheme({
@@ -55,7 +56,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     padding: "40px",
-    maxHeight: "507px"
+    maxHeight: "507px",
+    width: "100%"
   },
   carousel: {
     width: "100%",
@@ -179,7 +181,7 @@ const LogInView = () => {
         <div className={classes.root}>
           <CssBaseline />
           {/* Create welcome carousel */}
-          <WelcomeCarousel className={classes.carousel}/>
+          <CommerceCarousel className={classes.carousel}/>
           {/* Create material-ui card */}
           <Card className={classes.paper}>
             {/* Create invalid user alert container */}
