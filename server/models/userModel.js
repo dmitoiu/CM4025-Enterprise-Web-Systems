@@ -8,6 +8,7 @@
 var mongoose = require("mongoose");
 var bcrypt = require("bcryptjs");
 
+// Create user schema
 const userSchema = mongoose.Schema({
   name: {
     type: String,
@@ -35,10 +36,18 @@ const userSchema = mongoose.Schema({
   timestamps: true
 });
 
+/**
+ * Compare given password with hashed password
+ * @param password
+ * @returns {Promise<boolean>}
+ */
 userSchema.methods.comparePassword = async function(password){
   return await bcrypt.compare(password, this.password);
 }
 
+/**
+ * Hash the user password
+ */
 userSchema.pre("save", async function(next){
   if(!this.isModified("password")){
     next();
@@ -47,6 +56,7 @@ userSchema.pre("save", async function(next){
   this.password = await bcrypt.hash(this.password, salt);
 })
 
+// Create User model
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;

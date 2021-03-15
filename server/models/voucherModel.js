@@ -7,6 +7,7 @@
 // Importing libraries and utilities
 var mongoose = require("mongoose");
 
+// Create voucher schema
 const voucherSchema = mongoose.Schema({
   name: {
     type: String,
@@ -21,6 +22,7 @@ const voucherSchema = mongoose.Schema({
   timestamps: true
 });
 
+// Create voucher model
 const Voucher = mongoose.model("Voucher", voucherSchema);
 
 module.exports = Voucher;
