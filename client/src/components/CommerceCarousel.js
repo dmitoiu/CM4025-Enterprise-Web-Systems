@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
 // Darie-Dragos Mitoiu
-// RGU eShop (LogInView.js) v1.0.0 13/03/2021
+// RGU eShop (CommerceCarousel.js) v1.0.0 13/03/2021
 // A web application designed for a ecommerce shop
 // -----------------------------------------------------------------------
 
@@ -30,6 +30,8 @@ import {
  * @param props
  * @returns {*}
  * @constructor
+ * Author: Learus
+ * Reference: https://github.com/Learus/react-material-ui-carousel/blob/master/demo/src/components/Example.js
  */
 function Banner(props) {
   if (props.newProp) console.log(props.newProp)
