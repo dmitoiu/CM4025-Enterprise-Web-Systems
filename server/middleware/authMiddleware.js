@@ -36,7 +36,6 @@ const protect = async (req, res, next) => {
       user = await User.findById(decoded.id).select("-password");
       // Assign the user to req.user
       req.user = user;
-      console.log(decoded);
       next();
     } catch (e) {
       res.send(401);

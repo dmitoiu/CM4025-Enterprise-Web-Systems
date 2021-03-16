@@ -13,6 +13,7 @@ var logInUser = authController.logInUser;
 var getUserProfile = authController.getProfile;
 var authMiddleware = require("../middleware/authMiddleware");
 
+// Create api users routes
 router.route("/").post(registerUser);
 router.post("/login", logInUser);
 router.route("/profile").get(authMiddleware.protect, getUserProfile);

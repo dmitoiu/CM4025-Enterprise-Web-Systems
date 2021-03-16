@@ -15,6 +15,7 @@ var protect = authMiddleware.protect;
 var admin = authMiddleware.admin;
 var resetVoucher = voucherController.resetVoucher;
 
+// Create api vouchers routes
 router.route("/").get(protect, admin, getVouchers);
 router.route("/reset").post(protect, admin, resetVoucher);
 router.route("/update").post(updateVoucher);
