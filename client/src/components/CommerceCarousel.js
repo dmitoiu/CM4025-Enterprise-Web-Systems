@@ -1,3 +1,9 @@
+// -----------------------------------------------------------------------
+// Darie-Dragos Mitoiu
+// RGU eShop (LogInView.js) v1.0.0 13/03/2021
+// A web application designed for a ecommerce shop
+// -----------------------------------------------------------------------
+
 import React from 'react';
 import Carousel from "react-material-ui-carousel"
 import autoBind from "auto-bind"
@@ -19,6 +25,12 @@ import {
   IconButton
 } from '@material-ui/core';
 
+/**
+ * Carousel Banner
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 function Banner(props) {
   if (props.newProp) console.log(props.newProp)
   const contentPosition = props.contentPosition ? props.contentPosition : "left"
@@ -83,10 +95,11 @@ function Banner(props) {
   )
 }
 
+// Carousel items
 const items = [
   {
     Name: "Electronics",
-    Caption: "Electrify your friends!",
+    Caption: "Select your gadget!",
     contentPosition: "left",
     Items: [
       {
@@ -101,7 +114,7 @@ const items = [
   },
   {
     Name: "Home Appliances",
-    Caption: "Say no to manual home labour!",
+    Caption: "Automated home labour!",
     contentPosition: "middle",
     Items: [
       {
@@ -116,7 +129,7 @@ const items = [
   },
   {
     Name: "Decoratives",
-    Caption: "Give style and color to your living room!",
+    Caption: "Style your living room!",
     contentPosition: "right",
     Items: [
       {
@@ -131,6 +144,11 @@ const items = [
   }
 ]
 
+/**
+ * Carousel Class
+ * Author: Learus
+ * Reference: https://github.com/Learus/react-material-ui-carousel/blob/master/demo/src/components/Example.js
+ */
 class CommerceCarousel extends React.Component {
   constructor(props) {
     super(props);

@@ -4,6 +4,7 @@
 // A web application designed for a ecommerce shop
 // -----------------------------------------------------------------------
 
+// Importing components
 import {createStore} from "redux";
 import {combineReducers} from "redux";
 import {applyMiddleware} from "redux";
@@ -14,15 +15,18 @@ import {voucherReducer, voucherResetReducer} from "./reducers/voucherReducers";
 import {voucherDataReducer} from "./reducers/voucherReducers";
 import {drawerReducer} from "./reducers/drawerReducers";
 
+// Get user information
 const getUserInfoStorage = sessionStorage.getItem("authDetails") ?
     JSON.parse(sessionStorage.getItem("authDetails"))
     : null;
 
+// Create Initial state
 const initialState = {
   authLogIn: {userInfo: getUserInfoStorage},
   drawerOpen: false
 }
 
+// Create reducers
 const reducers = combineReducers({
   authLogIn: authLogInReducer,
   authRegister: authRegisterReducer,
@@ -32,6 +36,7 @@ const reducers = combineReducers({
   drawerOpen: drawerReducer
 });
 
+// Create store using reducers and initial state
 const store = createStore(reducers, initialState, composeWithDevTools(applyMiddleware(thunk)));
 
 export default store;
