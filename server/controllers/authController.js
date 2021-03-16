@@ -71,15 +71,14 @@ const registerUser = async (req, res) => {
     let error = "";
     if(userExists){
       if(userExists.username === username){
-        error = "username ";
+        error = "username exists ";
       }
       if(userExists.email === email){
-        error += "email"
+        error += "email exists"
       }
       res.status(401).json({
         error: error
       });
-      console.log("User exists already.");
     } else {
       const user = await User.create({
         name,
@@ -98,7 +97,6 @@ const registerUser = async (req, res) => {
         })
       } else {
         res.send(404);
-        console.log("User not found.");
       }
     }
 
@@ -125,7 +123,6 @@ const getProfile = async (req, res) => {
     })
   } else {
     res.send(404);
-    console.log("Customer not found.");
   }
   res.send("success");
 }
