@@ -25,7 +25,6 @@ import NewReleases from "@material-ui/icons/NewReleases";
 import ImportantDevicesIcon from "@material-ui/icons/ImportantDevices";
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import MovieIcon from "@material-ui/icons/Movie";
-import HomeView from "./views/HomeView";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import ProductView from "./views/ProductView";
 import LogInView from "./views/LogInView";

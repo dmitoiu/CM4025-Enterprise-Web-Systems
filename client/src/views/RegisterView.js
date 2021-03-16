@@ -204,7 +204,10 @@ const RegisterView = () => {
         successField("passwordError");
         if(!validator.isStrongPassword(formData.password)){
           validForm = false;
-          errorField("passwordError", "Please enter a stronger password.");
+          const passwordPattern = "The password must contain at least one upper case letter, " +
+                                  "one lower case letter, one number and " +
+                                  "one special character.";
+          errorField("passwordError", passwordPattern);
         }
       }
     }
