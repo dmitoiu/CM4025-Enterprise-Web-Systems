@@ -32,7 +32,6 @@ import Alert from '@material-ui/lab/Alert';
 import Carousel from "react-material-ui-carousel";
 import Paper from "@material-ui/core/Paper";
 import CardMedia from "@material-ui/core/CardMedia";
-import products from "../constants/products";
 import CommerceCarousel from "../components/CommerceCarousel";
 
 // Create rgu theme
@@ -90,47 +89,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
-/**
- * Create Log in Carousel
- * @param props
- * @returns {*}
- * @constructor
- */
-function WelcomeCarousel(props)
-{
-  // Access styles
-  const classes = useStyles();
-  var items = products;
-
-  return (
-      <Carousel className={classes.carousel} interval={5000}>
-        {
-          items.map( (item, i) => <Item key={i} item={item} /> )
-        }
-      </Carousel>
-  )
-}
-
-/**
- * Carousel Item
- * @param props
- * @returns {*}
- * @constructor
- */
-function Item(props)
-{
-  const classes = useStyles();
-  return (
-      <Paper className={classes.carouselPaper}>
-        <CardMedia
-            className={classes.media}
-            image={props.item.image}
-            title={props.item.name}
-        />
-      </Paper>
-  )
-}
 
 const LogInView = () => {
   // Access styles

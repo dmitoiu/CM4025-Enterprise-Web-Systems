@@ -132,7 +132,7 @@ const Header = () => {
                           </IconButton>
                       }
                         {/* Create link towards home path for the logo */}
-                        <Link to={"/"}>
+                        <Link to={"/login"}>
                             <img src={"/images/logo.png"} alt={"logo"} className={classes.logo}/>
                         </Link>
                         {/* Create app name */}
