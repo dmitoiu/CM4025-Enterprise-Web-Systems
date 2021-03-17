@@ -213,7 +213,6 @@ class CommerceCarousel extends React.Component {
   render() {
     return (
         <div style={{ marginTop: "0px", color: "#494949" }}>
-
           <Carousel
               className="Example"
               autoPlay={this.state.autoPlay}
@@ -223,9 +222,6 @@ class CommerceCarousel extends React.Component {
               cycleNavigation={this.state.cycleNavigation}
               navButtonsAlwaysVisible={this.state.navButtonsAlwaysVisible}
               navButtonsAlwaysInvisible={this.state.navButtonsAlwaysInvisible}
-              next={(now, previous) => console.log(`Next User Callback: Now displaying child${now}. Previously displayed child${previous}`)}
-              prev={(now, previous) => console.log(`Prev User Callback: Now displaying child${now}. Previously displayed child${previous}`)}
-              onChange={(now, previous) => console.log(`OnChange User Callback: Now displaying child${now}. Previously displayed child${previous}`)}
           >
             {
               items.map((item, index) => {
