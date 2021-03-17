@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     padding: "40px",
     maxHeight: "507px",
-    minWidth: "30%"
+    width: "100%"
   },
   carousel: {
     width: "100%",
